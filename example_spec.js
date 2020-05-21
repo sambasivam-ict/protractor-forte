@@ -1,31 +1,31 @@
 // spec.js
-describe('Calculator Functions Testing', function() {
-    it('should add two numbers', function() {
-        browser.get('http://juliemr.github.io/protractor-demo/');
+describe("Calculator Functions Testing", function () {
+  it("should add two numbers", function () {
+    browser.get("http://juliemr.github.io/protractor-demo/");
 
-        element(by.model('first')).sendKeys(4);
-        element(by.model('second')).sendKeys(8);
+    element(by.model("first")).sendKeys(4);
+    element(by.model("second")).sendKeys(8);
 
-        element(by.id('gobutton')).click();
+    element(by.id("gobutton")).click();
 
-        expect(element(by.binding('latest')).getText()).toEqual('12');
+    expect(element(by.binding("latest")).getText()).toEqual("12");
 
-        //expect(browser.getTitle()).toEqual('Super Calculator');
-    });
+    //expect(browser.getTitle()).toEqual('Super Calculator');
+    // this is a sample push request..
+  });
 
-    it('should multiple two numbers', function() {
-        browser.get('http://juliemr.github.io/protractor-demo/');
+  it("should multiple two numbers", function () {
+    browser.get("http://juliemr.github.io/protractor-demo/");
 
-        element(by.model('first')).sendKeys(4);
-        element(by.model('second')).sendKeys(8);
+    element(by.model("first")).sendKeys(4);
+    element(by.model("second")).sendKeys(8);
 
-        element(by.cssContainingText('option', '*')).click();
+    element(by.cssContainingText("option", "*")).click();
 
-        element(by.id('gobutton')).click();
+    element(by.id("gobutton")).click();
 
-        expect(element(by.binding('latest')).getText()).toEqual('32');
+    expect(element(by.binding("latest")).getText()).toEqual("32");
 
-        //expect(browser.getTitle()).toEqual('Super Calculator');
-    });
-
+    //expect(browser.getTitle()).toEqual('Super Calculator');
+  });
 });
