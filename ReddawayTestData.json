@@ -1,0 +1,152 @@
+{
+  "data": {
+    "environment_url": "http://54.176.155.237:3000/",
+    "ar_discount": 85,
+    "ar_fuel_charge": 26.3,
+    "ap_fuel_charge": 26.3,
+    "ar_nondirect_discount": 0,
+    "login_credentials_admin": {
+      "user_name": "Bbuchanan",
+      "password": "hRG7bcc"
+    },
+    "Nondirect_quote": {
+      "Originzipcode": "98127",
+      "Destinationzipcode": "59001",
+      "Class": "65",
+      "Weight": "1200",
+      "ap_gross_charge": "2214.24",
+      "ar_gross_charge": "2866.39"
+    },
+
+    "Direct_quote": {
+      "Originzipcode": "98027",
+      "Destinationzipcode": "90001",
+      "Class": "100",
+      "Weight": "2900",
+      "ap_gross_charge": "4508.92",
+      "ar_gross_charge": "5932.45",
+      "ca_charge": "8.95"
+    },
+
+    "ca_quote": {
+      "Originzipcode": "90001",
+      "Destinationzipcode": "98127",
+      "Class": "92",
+      "Weight": "2200",
+      "ap_gross_charge": "3292.30",
+      "ar_gross_charge": "4331.48",
+      "ca_charge": "8.95"
+    },
+
+    "Highcost_quote": {
+      "Originzipcode": "98009",
+      "Destinationzipcode": "90034",
+      "Class": "100",
+      "Weight": "1200",
+      "ap_gross_charge": "2236.92",
+      "ar_gross_charge": "2968.00",
+      "dollor_cwt_highcost": 5.5,
+      "ca_charge": "8.95"
+    },
+
+    "Highcostminvalueapplied_quote": {
+      "Originzipcode": "98009",
+      "Destinationzipcode": "90034",
+      "Class": "100",
+      "Weight": "100",
+      "ap_gross_charge": "283.66",
+      "ar_gross_charge": "375.79",
+      "highcost_charge": "49.95"
+    },
+
+    "Highcostmaxvalueapplied_quote": {
+      "Originzipcode": "98009",
+      "Destinationzipcode": "90034",
+      "Class": "125",
+      "Weight": "12900",
+      "ap_gross_charge": "17284.71",
+      "ar_gross_charge": "23042.53",
+      "highcost_charge": "118.95"
+    },
+
+    "Highcostseattle_quote": {
+      "Originzipcode": "98009",
+      "Destinationzipcode": "98039",
+      "Class": "100",
+      "Weight": "1200",
+      "ap_gross_charge": "953.04",
+      "ar_gross_charge": "1245.39",
+      "highcost_charge": "66"
+    },
+
+    "Highcostseattlemincostapplied_quote": {
+      "Originzipcode": "98009",
+      "Destinationzipcode": "98101",
+      "Class": "100",
+      "Weight": "100",
+      "ap_gross_charge": "113.28",
+      "ar_gross_charge": "147.83",
+      "highcost_charge": "41"
+    },
+
+    "Highcostseattlemaxcostapplied_quote": {
+      "Originzipcode": "98009",
+      "Destinationzipcode": "98039",
+      "Class": "125",
+      "Weight": "12900",
+      "ap_gross_charge": "4895.55",
+      "ar_gross_charge": "6428.15",
+      "highcost_charge": "110"
+    },
+
+    "Highcostsanfransicovalueappliedfrompdf_quote": {
+      "Originzipcode": "98009",
+      "Destinationzipcode": "98433",
+      "Class": "100",
+      "Weight": "1200",
+      "ap_gross_charge": "923.88",
+      "ar_gross_charge": "1207.52",
+      "highcost_charge": "66"
+    },
+
+    "Highcostsanfransicomincostvalueapplied_quote": {
+      "Originzipcode": "98009",
+      "Destinationzipcode": "94102",
+      "Class": "100",
+      "Weight": "100",
+      "ap_gross_charge": "262.41",
+      "ar_gross_charge": "344.28",
+      "highcost_charge": "69.95"
+    },
+
+    "Highcostsanfransicomaxcostvalueapplied_quote": {
+      "Originzipcode": "98009",
+      "Destinationzipcode": "94151",
+      "Class": "125",
+      "Weight": "12900",
+      "ap_gross_charge": "15625.77",
+      "ar_gross_charge": "20327.56",
+      "highcost_charge": "138.95"
+    },
+
+    "Highcostvalueappliedfromexcelsheeet_quote": {
+      "Originzipcode": "98009",
+      "Destinationzipcode": "93901",
+      "Class": "125",
+      "Weight": "1200",
+      "ap_gross_charge": "2486.52",
+      "ar_gross_charge": "3266.65",
+      "highcost_charge": "28.95"
+    },
+
+    "AccessorialLiftGate_quote": {
+      "Originzipcode": "98127",
+      "Destinationzipcode": "80201",
+      "Class": "85",
+      "Weight": "1200",
+      "ap_gross_charge": "2376.36",
+      "ar_gross_charge": "3076.36",
+      "highcost_charge": "140.6"
+    }
+  }
+}

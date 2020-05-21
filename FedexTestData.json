@@ -1,0 +1,49 @@
+{
+  "data": {
+    "environment_url": "http://54.176.155.237:3000/",
+    "ar_discount": 78,
+    "ar_fuel_charge": 24,
+    "login_credentials_admin": {
+      "user_name": "Bbuchanan",
+      "password": "hRG7bcc"
+    },
+    "Inter_regional": {
+      "Originzipcode": "98275",
+      "Destinationzipcode": "60450",
+      "Class": "70",
+      "Weight": "972",
+      "ap_gross_charge": "2115.30",
+      "ar_gross_charge": "2609.01"
+    },
+
+    "Regional_quote": {
+      "Originzipcode": "35804",
+      "Destinationzipcode": "80210",
+      "Class": "100",
+      "Weight": "1000",
+      "ap_gross_charge": "2378.60",
+      "ar_gross_charge": "2933.68"
+    },
+
+    "ca_quote": {
+      "Originzipcode": "90001",
+      "Destinationzipcode": "98127",
+      "Class": "92",
+      "Weight": "2200",
+      "ap_gross_charge": "3269.42",
+      "ar_gross_charge": "4097.99",
+      "ca_charge": "7"
+    },
+
+    "Highcost_quote": {
+      "Originzipcode": "98286",
+      "Destinationzipcode": "58852",
+      "Class": "100",
+      "Weight": "1500",
+      "ap_gross_charge": "4762.05",
+      "highcostap_charge": "0",
+      "ar_gross_charge": "5873.38",
+      "highcostar_charge": "104"
+    }
+  }
+}
