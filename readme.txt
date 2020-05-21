@@ -19,7 +19,7 @@ start the web driver manager:
 webdriver-manager start
 
 start the protractor from the current working directory
-protractor conf.jasmine
+protractor conf.js
 
 Note: have reports\dashboard folder from the working directory - we will fix it later.
 
