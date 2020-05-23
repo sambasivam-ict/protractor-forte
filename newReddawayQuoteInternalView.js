@@ -6,6 +6,10 @@ var LocalStorageValues = require("./pageobjects/LocalStorateValues");
 
 var testDataInfo = require("./ReddawayTestData.json");
 
+var masterDataAPDiscount = [];
+
+var masterDataARDiscount = [];
+
 describe("Reddaway Quote Creation by admin testcases in the internal page", function () {
   beforeAll(function () {
     console.log("test data:", testDataInfo.data.Nondirect_quote.Class);
@@ -37,6 +41,25 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
   it("Reddaway should calculate the net charge properly for Non Direct Zipcodes", function () {
     browser.sleep(3000).then(function () {
       var internalForm = new InternalForm();
+
+      var localStorageValues = new LocalStorageValues();
+
+      localStorageValues
+        .getApMasterDataLocalStorage()
+        .then(function (returnData) {
+          masterDataAPDiscount = returnData;
+          console.log("inside after esolveing promise:", masterDataAPDiscount);
+        });
+
+      localStorageValues
+        .getArMasterDataLocalStorage()
+        .then(function (returnData) {
+          masterDataARDiscount = returnData;
+          console.log(
+            "inside after resolving AR promise:",
+            masterDataARDiscount
+          );
+        });
 
       browser.sleep(2000);
 
@@ -103,6 +126,9 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
         expect(reddawayARNetChargeElem.getText()).toEqual(
           "$" + quoteObj.netCharge
         );
+
+        expect(masterDataAPDiscount[0].type).toEqual("AP");
+        expect(masterDataAPDiscount[3].companyName).toEqual("REDDAWAY");
       });
       browser.sleep(3000);
     });

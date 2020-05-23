@@ -1,12 +1,32 @@
 var LocalStorageValues = function () {
-  this.getYRCApDiscount = function () {
-    var valuesList = browser.executeScript(
+  var masterDataAP;
+
+  var masterDataAR;
+
+  this.getApMasterDataLocalStorage = async function () {
+    var valuesList = await browser.executeScript(
       "return window.localStorage.getItem('aptableData');"
     );
 
-    if (valuesList.length > 0) {
-      return valuesList[2].discount;
-    } else return null;
+    this.setMasterDataAP(valuesList);
+
+    return JSON.parse(valuesList);
+  };
+
+  this.getArMasterDataLocalStorage = async function () {
+    var valuesList = await browser.executeScript(
+      "return window.localStorage.getItem('artableData');"
+    );
+    this.setMasterDataAR = valuesList;
+    return JSON.parse(valuesList);
+  };
+
+  this.setMasterDataAP = function (masterDataAP) {
+    this.masterDataAP = masterDataAP;
+  };
+
+  this.setMasterDataAR = function (masterDataAR) {
+    this.masterDataAR = masterDataAR;
   };
 };
 
