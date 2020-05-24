@@ -121,7 +121,9 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
           "$" + quoteObj.netCharge
         );
 
-        //the following 2 are dummy expects to make sure reduce method works.
+        //the following 3 are dummy expects to make sure reduce method works.
+
+        // YOU CAN use localStorageValues.getAPMasterDataForReddaway().companyName instead
 
         expect(
           localStorageValues.getApMasterDataByCompany().REDDAWAY.companyName
@@ -130,6 +132,10 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
         expect(
           localStorageValues.getArMasterDataByCompany().REDDAWAY.type
         ).toEqual("AR");
+
+        expect(
+          localStorageValues.getAPMasterDataForReddaway().fuelsurcharge
+        ).toEqual("26.3");
       });
       browser.sleep(3000);
     });

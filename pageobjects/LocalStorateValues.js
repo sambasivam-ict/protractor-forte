@@ -67,6 +67,35 @@ var LocalStorageValues = function () {
   this.getArMasterDataByCompany = function () {
     return this.arMasterDataByCompany;
   };
+
+  this.getApMasterDataForYRC = function () {
+    return this.apMasterDataByCompany.YRC;
+  };
+
+  this.getArMasterDataForYRC = function () {
+    return this.arMasterDataByCompany.YRC;
+  };
+
+  this.getAPMasterDataForFedexEco = function () {
+    return this.apMasterDataByCompany.FEDEXECONOMY;
+  };
+  this.getARMasterDataForFedexEco = function () {
+    return this.arMasterDataByCompany.FEDEXECONOMY;
+  };
+
+  this.getAPMasterDataForFedexPrio = function () {
+    return this.apMasterDataByCompany.FEDEXPRIORITY;
+  };
+  this.getARMasterDataForFedexPrio = function () {
+    return this.arMasterDataByCompany.FEDEXPRIORITY;
+  };
+
+  this.getAPMasterDataForReddaway = function () {
+    return this.apMasterDataByCompany.REDDAWAY;
+  };
+  this.getARMasterDataForReddaway = function () {
+    return this.arMasterDataByCompany.REDDAWAY;
+  };
 };
 
 module.exports = LocalStorageValues;
