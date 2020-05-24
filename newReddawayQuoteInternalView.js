@@ -10,6 +10,8 @@ var masterDataAPDiscount = [];
 
 var masterDataARDiscount = [];
 
+var localStorageValues = new LocalStorageValues();
+
 describe("Reddaway Quote Creation by admin testcases in the internal page", function () {
   beforeAll(function () {
     console.log("test data:", testDataInfo.data.Nondirect_quote.Class);
@@ -32,6 +34,17 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
 
     browser.driver.manage().window().maximize();
     browser.sleep(3000);
+    localStorageValues
+      .getApMasterDataLocalStorage()
+      .then(function (returnData) {
+        masterDataAPDiscount = returnData;
+      });
+
+    localStorageValues
+      .getArMasterDataLocalStorage()
+      .then(function (returnData) {
+        masterDataARDiscount = returnData;
+      });
   });
 
   afterAll(function () {
@@ -41,25 +54,6 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
   it("Reddaway should calculate the net charge properly for Non Direct Zipcodes", function () {
     browser.sleep(3000).then(function () {
       var internalForm = new InternalForm();
-
-      var localStorageValues = new LocalStorageValues();
-
-      localStorageValues
-        .getApMasterDataLocalStorage()
-        .then(function (returnData) {
-          masterDataAPDiscount = returnData;
-          console.log("inside after esolveing promise:", masterDataAPDiscount);
-        });
-
-      localStorageValues
-        .getArMasterDataLocalStorage()
-        .then(function (returnData) {
-          masterDataARDiscount = returnData;
-          console.log(
-            "inside after resolving AR promise:",
-            masterDataARDiscount
-          );
-        });
 
       browser.sleep(2000);
 
@@ -106,7 +100,7 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
         const quoteObj = internalForm.calculateNetCharge(
           testDataInfo.data.Nondirect_quote.ar_gross_charge,
           testDataInfo.data.ar_nondirect_discount,
-          testDataInfo.data.ar_fuel_charge
+          localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge
         );
 
         browser.actions().mouseMove(reddawayARNetChargeElem).perform();
@@ -127,8 +121,15 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
           "$" + quoteObj.netCharge
         );
 
-        expect(masterDataAPDiscount[0].type).toEqual("AP");
-        expect(masterDataAPDiscount[3].companyName).toEqual("REDDAWAY");
+        //the following 2 are dummy expects to make sure reduce method works.
+
+        expect(
+          localStorageValues.getApMasterDataByCompany().REDDAWAY.companyName
+        ).toEqual("REDDAWAY");
+
+        expect(
+          localStorageValues.getArMasterDataByCompany().REDDAWAY.type
+        ).toEqual("AR");
       });
       browser.sleep(3000);
     });
@@ -181,8 +182,8 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
 
         const quoteObj = internalForm.calculateNetCharge(
           testDataInfo.data.Direct_quote.ar_gross_charge,
-          testDataInfo.data.ar_discount,
-          testDataInfo.data.ar_fuel_charge
+          localStorageValues.getArMasterDataByCompany().REDDAWAY.discount,
+          localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge
         );
 
         browser.actions().mouseMove(reddawayARNetChargeElem).perform();
@@ -267,8 +268,8 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
 
         const quoteObj = internalForm.calculateNetCharge(
           testDataInfo.data.ca_quote.ar_gross_charge,
-          testDataInfo.data.ar_discount,
-          testDataInfo.data.ar_fuel_charge
+          localStorageValues.getArMasterDataByCompany().REDDAWAY.discount,
+          localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge
         );
 
         browser.actions().mouseMove(reddawayARNetChargeElem).perform();
@@ -282,11 +283,13 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
         );
 
         expect(reddawayApCAChargeElem.getText()).toEqual(
-          "CA Charge - $" + testDataInfo.data.ca_quote.ca_charge
+          "CA Charge - $" +
+            localStorageValues.getApMasterDataByCompany().REDDAWAY.caCharge
         );
 
         expect(reddawayArCAChargeElem.getText()).toEqual(
-          "CA Charge - $" + testDataInfo.data.ca_quote.ca_charge
+          "CA Charge - $" +
+            localStorageValues.getArMasterDataByCompany().REDDAWAY.caCharge
         );
 
         expect(reddawayARDiscountedRateElem.getText()).toEqual(
