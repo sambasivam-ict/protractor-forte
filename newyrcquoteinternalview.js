@@ -166,28 +166,13 @@ describe("YRC Quote Creation by admin testcases", function () {
       // browser.actions().sendKeys(protractor.Key.ESCAPE).perform();
       $("body").sendKeys(protractor.Key.ESCAPE);
       var internalForm = new InternalForm();
-
-      internalForm.setOrginzipcode(
-        testDataInfo.data.non_direct_zip.Originzipcode
-      );
-      internalForm.setDestinationzipcode(
-        testDataInfo.data.non_direct_zip.Destinationzipcode
-      );
-      internalForm.setClass(testDataInfo.data.non_direct_zip.Class);
-      internalForm.setWeight(testDataInfo.data.non_direct_zip.Weight);
-
-      internalForm.enterOrginZipcode();
-      internalForm.enterdestinationzipcode();
-
-      internalForm.enterClass();
+      var ltlQuoteForm = new LtlQuoteForm();
       browser.sleep(2000);
-      internalForm.enterWeight();
-      browser.sleep(3000);
 
-      internalForm.clickAddBtn();
+      var dataObj = testDataInfo.data.non_direct_zip;
 
-      browser.sleep(3000);
-
+      ltlQuoteForm.setDataInObject(dataObj, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
       internalForm.clickGetQuote();
 
       browser.sleep(10000).then(function () {
@@ -210,25 +195,21 @@ describe("YRC Quote Creation by admin testcases", function () {
         const quoteObj = internalForm.calculateNetCharge(
           testDataInfo.data.non_direct_zip.ar_gross_charge,
           testDataInfo.data.ar_nondirect_discount,
-          testDataInfo.data.ar_fuel_charge
+          localStorageValues.getArMasterDataForYRC().fuelsurcharge
         );
 
         yrcShipTypesElem.getText().then(function (text) {
-          expect(text).toEqual(testDataInfo.data.non_direct_zip.ship_type);
+          expect(text).toEqual(dataObj.ship_type);
         });
 
-        expect(yrcApGrossElem.getText()).toEqual(
-          "$" + testDataInfo.data.non_direct_zip.ap_gross_charge
-        );
-        expect(yrcArGrossElem.getText()).toEqual(
-          "$" + testDataInfo.data.non_direct_zip.ar_gross_charge
-        );
+        expect(yrcApGrossElem.getText()).toEqual("$" + dataObj.ap_gross_charge);
+        expect(yrcArGrossElem.getText()).toEqual("$" + dataObj.ar_gross_charge);
 
         expect(yrcApCaChargeElem.getText()).toEqual(
-          "CA Charge - $" + testDataInfo.data.non_direct_zip.ca_charge
+          "CA Charge - $" + localStorageValues.getApMasterDataForYRC().caCharge
         );
         expect(yrcApCaChargeElem.getText()).toEqual(
-          "CA Charge - $" + testDataInfo.data.non_direct_zip.ca_charge
+          "CA Charge - $" + localStorageValues.getArMasterDataForYRC().caCharge
         );
 
         expect(yrcArDiscountedRateElem.getText()).toEqual(
