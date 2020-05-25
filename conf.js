@@ -30,10 +30,10 @@ exports.config = {
 
   framework: "jasmine",
   seleniumAddress: "http://localhost:4444/wd/hub",
-  //seleniumAddress: 'http://localhost:4723/wd/hub',
   //specs: ["NewFedexQuoteInternalView.js"],
   //specs: ["newyrcquoteinternalview.js"],
-  specs: ["newReddawayQuoteInternalView.js"],
+  //specs: ["newReddawayQuoteInternalView.js"],
+  specs: ["newyrcquoteinternalview.js"],
 
   /*
   beforeLaunch: function () {
