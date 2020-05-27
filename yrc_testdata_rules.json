@@ -85,6 +85,19 @@
         "ar_fuel_charge": 24,
         "ca_charge": 0
       }
+    },
+    "yrc_costplus": {
+      "company_name": "Cost Plus for Test Company for E2e costplus",
+      "Originzipcode": "90005",
+      "Destinationzipcode": "10001",
+      "Class": "55",
+      "Weight": "1365",
+      "ap_ar_gross_charge": "4417.96",
+      "ap__ar_discount": 92.2,
+      "ap_ar_fuel_charge": 24,
+      "ap_ar_ca_charge": 0,
+      "ap_ar_highcost": 0,
+      "costplus_factor": 10
     }
   }
 }
