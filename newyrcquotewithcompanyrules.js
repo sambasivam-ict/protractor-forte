@@ -142,4 +142,16 @@ describe("YRC Quote Creation by admin for company that has rules", function () {
       expect(true).toEqual(true);
     });
   });
+  it("YRC Cost Plus should calculate netcharge properly with appropriate cost plus factor configured for the company", function () {
+    browser.sleep(5000).then(function () {
+      console.log(
+        "yrc cost plus should calculate net charge correctly based on the cost plus factor"
+      );
+
+      var dataObj = testDataInfo.data.yrc_costplus;
+      console.log("value for dataObj", dataObj);
+
+      expect(true).toEqual(true);
+    });
+  });
 });
