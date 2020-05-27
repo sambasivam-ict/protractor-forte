@@ -1,0 +1,76 @@
+{
+  "data": {
+    "environment_url": "http://54.176.155.237:3000/",
+    "login_credentials_admin": {
+      "user_name": "Bbuchanan",
+      "password": "hRG7bcc"
+    },
+
+    "yrc_intra_state": {
+      "company_name": "TEST COMPANY FOR E2E",
+      "amc_gt_dsc_rate": {
+        "Originzipcode": "80005",
+        "Destinationzipcode": "80002",
+        "Class": "100",
+        "Weight": "1200",
+        "ap_gross_charge": "614.40",
+        "ar_gross_charge": "803.08",
+        "ap_discount": 80,
+        "ar_discount": 55,
+        "ap_fuel_discount": 24,
+        "ar_fuel_discount": 24,
+        "ap_amc": 120,
+        "ar_amc": 110
+      },
+      "ca_highcost_charge": {
+        "Originzipcode": "90005",
+        "Destinationzipcode": "90005",
+        "Class": "85",
+        "Weight": "1500",
+        "ap_gross_charge": "1502.25",
+        "ar_gross_charge": "2062.46",
+        "ap_discount": 45,
+        "ar_discount": 55,
+        "ap_fuel_discount": 24,
+        "ar_fuel_discount": 24,
+        "ap_amc": 120,
+        "ar_amc": 110,
+        "high_cost": 116,
+        "ca_charge": 0
+      },
+      "fak_class_range_data": {
+        "description": "85 - 200 to be treated as 300",
+        "attn_janani": "add whatever origin and destination zip you want. ap and ar respectively"
+      }
+    },
+    "yrc_inter_state": {
+      "company_name": "TEST COMPANY FOR E2E",
+      "inter_state_high_cost": {
+        "Originzipcode": "80005",
+        "Destinationzipcode": "10001",
+        "Class": "100",
+        "Weight": "1200",
+        "ap_gross_charge": "4805.04",
+        "ar_gross_charge": "6220.37"
+      }
+    },
+    "yrc_special_rules": {
+      "zip_to_zip": {
+        "Originzipcode": "80005",
+        "Destinationzipcode": "10001",
+        "Class": "100",
+        "Weight": "1200",
+        "ap_gross_charge": "4805.04",
+        "ar_gross_charge": "6220.37"
+      },
+      "zip_to_state": {
+        "Originzipcode": "60005",
+        "Destinationzipcode": "90005",
+        "Class": "100",
+        "Weight": "1200",
+        "ap_gross_charge": "4805.04",
+        "ar_gross_charge": "6220.37"
+      }
+    }
+  }
+}
