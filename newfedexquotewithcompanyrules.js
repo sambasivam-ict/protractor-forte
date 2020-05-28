@@ -60,8 +60,9 @@ describe("Fedex Economy Quote Creation by admin for company that has rules", fun
       console.log("value for dataObj", testDataInfo.data.company_name);
       console.log("regional origin zip", dataObj.Originzipcode);
 
+      internalForm.setCompanyName(testDataInfo.data.company_name);
       ltlQuoteForm.setDataInObject(dataObj, internalForm);
-      ltlQuoteForm.createLtlQuote(browser, internalForm);
+      ltlQuoteForm.createLtlQuoteRules(browser, internalForm);
       internalForm.clickGetQuote();
 
       browser.sleep(10000).then(function () {

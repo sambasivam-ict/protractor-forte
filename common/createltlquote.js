@@ -23,5 +23,22 @@ var CreateLTLQuote = function () {
 
     browser.sleep(3000);
   };
+
+  this.createLtlQuoteRules = function (browser, internalForm) {
+    internalForm.selectCompanyForRules();
+    browser.sleep(2000);
+    internalForm.enterOrginZipcode();
+    internalForm.enterdestinationzipcode();
+
+    internalForm.enterClass();
+    browser.sleep(2000);
+    internalForm.enterWeight();
+    browser.sleep(3000);
+
+    internalForm.clickAddBtn();
+
+    browser.sleep(3000);
+  };
 };
+
 module.exports = CreateLTLQuote;

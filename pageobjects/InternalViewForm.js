@@ -15,7 +15,7 @@ var InternalViewForm = function () {
 
   this.ClickGetQuoteElem = element(by.id("getQuote"));
 
-  this.selectElemComapny = $("select[formControlName=customer]");
+  this.selectElemCompany = $("select[formControlName=customer]");
 
   this.viewBtnYrc = element(by.id("yrcView"));
   this.viewBtnFedex = element(by.id("economyView"));
@@ -55,7 +55,13 @@ var InternalViewForm = function () {
   };
 
   this.selectCompany = function () {
-    this.selectElemComapny.$('[value="157"]').click();
+    this.selectElemCompany.$('[value="157"]').click();
+  };
+
+  this.selectCompanyForRules = function () {
+    this.selectElemCompany
+      .element(by.cssContainingText("option", this.getCompanyName()))
+      .click();
   };
 
   this.clickSelectAccessorialMultiSelect = function () {
