@@ -36,6 +36,7 @@ var InternalViewForm = function () {
   var Class;
   var Weight;
   var highCostDollorPerCWT;
+  var companyName;
 
   this.setOrginzipcode = function (orginzipcode) {
     this.orginzipcode = orginzipcode;
@@ -43,6 +44,14 @@ var InternalViewForm = function () {
 
   this.setHighCostDollorPerCWT = function (highCostDollorPerCWT) {
     this.highCostDollorPerCWT = highCostDollorPerCWT;
+  };
+
+  this.setCompanyName = function (companyName) {
+    this.companyName = companyName;
+  };
+
+  this.getCompanyName = function () {
+    return this.companyName;
   };
 
   this.selectCompany = function () {

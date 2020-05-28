@@ -1,0 +1,61 @@
+{
+  "data": {
+    "environment_url": "http://54.176.155.237:3000/",
+    "login_credentials_admin": {
+      "user_name": "Bbuchanan",
+      "password": "hRG7bcc"
+    },
+
+    "company_name": "Janani Test Company Fedex Rules",
+
+    "fedex_regional": {
+      "Originzipcode": "35006",
+      "Destinationzipcode": "06006",
+      "Class": "175",
+      "Weight": "630",
+      "ap_gross_charge": "2732.81",
+      "ar_gross_charge": "3370.69",
+      "ap_discount": 81,
+      "ar_discount": 33,
+      "ap_fuel_charge": 24.5,
+      "ar_fuel_charge": 24,
+      "ap_amc": 75.66,
+      "ar_amc": 45
+    },
+    "fedex_interregional": {
+      "Originzipcode": "71601",
+      "Destinationzipcode": "85006",
+      "Class": "55",
+      "Weight": "1460",
+      "ap_gross_charge": "2176.42",
+      "ar_gross_charge": "2719.24",
+      "ap_discount": 81,
+      "ar_discount": 56,
+      "ap_fuel_charge": 24.5,
+      "ar_fuel_charge": 24,
+      "ap_amc": 75.66,
+      "ar_amc": 56,
+      "high_cost": 0,
+      "ca_charge": 0
+    },
+    "fedex_special_rules": {
+      "company_name": "Janani Spl Rules Test Company Fedex",
+      "all_to_zip": {
+        "Originzipcode": "90005",
+        "Destinationzipcode": "30003",
+        "Class": "65",
+        "Weight": "390",
+        "ap_gross_charge": "1241.25",
+        "ar_gross_charge": "1530.98",
+        "ap_discount": 79.5,
+        "ar_discount": 67,
+        "ap_fuel_charge": 23.9,
+        "ar_fuel_charge": 23.9,
+        "ap_amc": 81.04,
+        "ar_amc": 69,
+        "high_cost": 0,
+        "ca_charge": 0
+      }
+    }
+  }
+}
