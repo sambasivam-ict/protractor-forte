@@ -4,6 +4,8 @@ var InternalForm = require("./pageobjects/InternalViewForm");
 
 var LocalStorageValues = require("./pageobjects/LocalStorateValues");
 
+var QuoteDetailForm = require("./pageobjects/QuoteDetailForm");
+
 var LtlQuoteForm = require("./common/createltlquote");
 
 var testDataInfo = require("./testdata.json");
@@ -12,6 +14,7 @@ var masterDataAPDiscount = [];
 var masterDataARDiscount = [];
 
 var localStorageValues = new LocalStorageValues();
+var quoteDetailForm = new QuoteDetailForm();
 
 describe("YRC Quote Creation by admin testcases", function () {
   beforeAll(function () {
@@ -72,11 +75,6 @@ describe("YRC Quote Creation by admin testcases", function () {
         internalForm.clickViewButtonYrc();
 
         browser.sleep(2000);
-        var yrcApGrossElem = element(by.id("yrcAPGrosscharge"));
-        var yrcArGrossElem = element(by.id("yrcARGross"));
-
-        var yrcArDiscountedRateElem = element(by.id("yrcArDiscountedRate"));
-        var yrcArNetChargeElem = element(by.id("yrcArNetCahrge"));
 
         const quoteObj = internalForm.calculateNetCharge(
           dataObj.ar_gross_charge,
@@ -86,17 +84,24 @@ describe("YRC Quote Creation by admin testcases", function () {
 
         //as of now, we validate the ar charges, in the future, we need to validate ap charges too
 
-        browser.actions().mouseMove(yrcArNetChargeElem).perform();
+        browser
+          .actions()
+          .mouseMove(quoteDetailForm.yrcArNetChargeElem)
+          .perform();
         browser.sleep(1000);
 
-        expect(yrcApGrossElem.getText()).toEqual("$" + dataObj.ap_gross_charge);
-        expect(yrcArGrossElem.getText()).toEqual("$" + dataObj.ar_gross_charge);
-
-        expect(yrcArDiscountedRateElem.getText()).toEqual(
+        expect(quoteDetailForm.getYrcApGrossCharge()).toEqual(
+          "$" + dataObj.ap_gross_charge
+        );
+        expect(quoteDetailForm.getYrcArGrossCharge()).toEqual(
+          "$" + dataObj.ar_gross_charge
+        );
+        expect(quoteDetailForm.getYrcArDiscountedRate()).toEqual(
           "$" + quoteObj.discountedRate
         );
-
-        expect(yrcArNetChargeElem.getText()).toEqual("$" + quoteObj.netCharge);
+        expect(quoteDetailForm.getYrcArNetCharge()).toEqual(
+          "$" + quoteObj.netCharge
+        );
       });
     });
 
