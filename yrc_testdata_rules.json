@@ -9,6 +9,7 @@
     "yrc_intra_state": {
       "company_name": "TEST COMPANY FOR E2E",
       "amc_gt_dsc_rate": {
+        "company_name": "TEST COMPANY FOR E2E",
         "Originzipcode": "80005",
         "Destinationzipcode": "80002",
         "Class": "100",
@@ -19,10 +20,11 @@
         "ar_discount": 55,
         "ap_fuel_charge": 24,
         "ar_fuel_charge": 24,
-        "ap_amc": 120,
-        "ar_amc": 110
+        "ap_amc": 145,
+        "ar_amc": 120
       },
       "ca_highcost_charge": {
+        "company_name": "TEST COMPANY FOR E2E",
         "Originzipcode": "90005",
         "Destinationzipcode": "90005",
         "Class": "85",
@@ -35,59 +37,122 @@
         "ar_fuel_charge": 24,
         "ap_amc": 120,
         "ar_amc": 110,
-        "high_cost": 116,
-        "ca_charge": 0
+        "high_cost": 82,
+        "ca_charge": 9
       },
       "fak_class_range_data": {
         "description": "85 - 200 to be treated as 300",
-        "attn_janani": "add whatever origin and destination zip you want. ap and ar respectively"
+        "attn_janani": "add whatever origin and destination zip you want. ap and ar respectively",
+        "company_name": "TEST COMPANY FOR E2E",
+        "Originzipcode": "10001",
+        "Destinationzipcode": "10001",
+        "Class": "150",
+        "Weight": "690",
+        "ap_gross_charge": "2477.72",
+        "ar_gross_charge": "6615.56",
+        "ap_discount": 90.1,
+        "ar_discount": 69,
+        "ap_fuel_charge": 24,
+        "ar_fuel_charge": 24,
+        "ap_amc": 115,
+        "ar_amc": 85,
+        "high_cost": 116,
+        "ca_charge": 0
       }
     },
     "yrc_inter_state": {
       "company_name": "TEST COMPANY FOR E2E",
       "inter_state_high_cost": {
+        "company_name": "TEST COMPANY FOR E2E",
         "Originzipcode": "80005",
         "Destinationzipcode": "10001",
         "Class": "100",
         "Weight": "1200",
         "ap_gross_charge": "4805.04",
-        "ar_gross_charge": "6220.37"
+        "ar_gross_charge": "6220.37",
+        "ap_discount": 55,
+        "ar_discount": 77,
+        "ap_fuel_charge": 24,
+        "ar_fuel_charge": 24,
+        "ap_amc": 130,
+        "ar_amc": 77,
+        "high_cost": 116
       }
     },
     "yrc_special_rules": {
       "company_name": "TEST COMPANY FOR E2E",
       "zip_to_zip": {
+        "company_name": "TEST COMPANY FOR E2E",
         "Originzipcode": "80005",
-        "Destinationzipcode": "10001",
-        "Class": "100",
-        "Weight": "1200",
-        "ap_gross_charge": "4805.04",
-        "ar_gross_charge": "6220.37"
+        "Destinationzipcode": "90005",
+        "Class": "500",
+        "Weight": "2500",
+        "ap_gross_charge": "22555.25",
+        "ar_gross_charge": "29966.03",
+        "ap_discount": 66,
+        "ar_discount": 78,
+        "ap_fuel_charge": 24,
+        "ar_fuel_charge": 24,
+        "ap_amc": 115,
+        "ar_amc": 120,
+        "high_cost": 82,
+        "ca_charge": 9
       },
       "zip_to_state": {
+        "company_name": "TEST COMPANY FOR E2E",
         "Originzipcode": "60005",
         "Destinationzipcode": "90005",
-        "Class": "100",
-        "Weight": "1200",
-        "ap_gross_charge": "4805.04",
-        "ar_gross_charge": "6220.37"
+        "Class": "85",
+        "Weight": "800",
+        "ap_gross_charge": "2545.28",
+        "ar_gross_charge": "3477.11",
+        "ap_discount": 20,
+        "ar_discount": 52,
+        "ap_fuel_charge": 24,
+        "ar_fuel_charge": 24,
+        "ap_amc": 150,
+        "ar_amc": 140,
+        "high_cost": 82,
+        "ca_charge": 9
       },
+      "state_to_zip": {
+        "company_name": "TEST COMPANY FOR E2E",
+        "Originzipcode": "80005",
+        "Destinationzipcode": "70005",
+        "Class": "400",
+        "Weight": "1650",
+        "ap_gross_charge": "14862.54",
+        "ar_gross_charge": "19240.01",
+        "ap_discount": 55,
+        "ar_discount": 77,
+        "ap_fuel_charge": 24,
+        "ar_fuel_charge": 24,
+        "ap_amc": 130,
+        "ar_amc": 77,
+        "high_cost": 0,
+        "ca_charge": 0
+      },
+     
       "all_to_state": {
+        "company_name": "TEST COMPANY FOR E2E",
         "Originzipcode": "10001",
         "Destinationzipcode": "75001",
         "Class": "100",
-        "Weight": "1300",
+        "Weight": "1350",
         "ap_gross_charge": "4290.57",
         "ar_gross_charge": "5554.24",
         "ap_discount": 55,
         "ar_discount": 45,
         "ap_fuel_charge": 24,
         "ar_fuel_charge": 24,
+        "ap_amc": 130,
+        "ar_amc": 67,
+        "high_cost": 0,
         "ca_charge": 0
       }
     },
     "yrc_costplus": {
-      "company_name": "Cost Plus for Test Company for E2e costplus",
+      "company_name": "TEST COMPANY FOR E2E",
       "Originzipcode": "90005",
       "Destinationzipcode": "10001",
       "Class": "55",
@@ -95,8 +160,9 @@
       "ap_ar_gross_charge": "4417.96",
       "ap__ar_discount": 92.2,
       "ap_ar_fuel_charge": 24,
-      "ap_ar_ca_charge": 0,
-      "ap_ar_highcost": 0,
+      "ap_ar_ca_charge": 9,
+      "ap_ar_highcost": 116,
+      "ap_ar_amc": 140,
       "costplus_factor": 10
     }
   }

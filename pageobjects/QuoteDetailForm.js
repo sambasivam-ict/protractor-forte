@@ -13,6 +13,10 @@ var QuoteDetailForm = function () {
   this.yrcApHighCostElem = element(by.id("yrcApHighCost"));
   this.yrcArHighCostElem = element(by.id("yrcArHighCost"));
 
+  // this.fedexEcoApGrossElem = element(by.id(""));
+  // this.fedexEcoArGrossElem = element(by.id(""));
+
+  
   this.getYrcApGrossCharge = async function () {
     //var grossCharge = await this.yrcApGrossElem.getText();
     return await this.yrcApGrossElem.getText();

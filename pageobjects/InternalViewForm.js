@@ -27,6 +27,8 @@ var InternalViewForm = function () {
 
   this.clickDrowpDown = element(by.id("Capa_1"));
 
+  this.clearAllBtn = element(by.id("clear"));
+
   //this.getQuoteElem = $("button[id=getQuote]");
 
   //this.selectCompanyElem = $(by.id("customer"));
@@ -54,11 +56,12 @@ var InternalViewForm = function () {
     return this.companyName;
   };
 
-  this.selectCompany = function () {
-    this.selectElemCompany.$('[value="157"]').click();
-  };
+  // this.selectCompany = function () {
+  //   this.selectElemCompany.$('[value="305"]').click();
+  // };
 
   this.selectCompanyForRules = function () {
+    console.log('this.selectcompanyrules');
     this.selectElemCompany
       .element(by.cssContainingText("option", this.getCompanyName()))
       .click();
@@ -86,6 +89,9 @@ var InternalViewForm = function () {
     this.clickDrowpDown.click();
   };
 
+  this.clearAllIcon = function() {
+    this.clearAllBtn.click();
+  };
   this.clickGetQuote = function () {
     this.ClickGetQuoteElem.click();
   };
@@ -150,14 +156,20 @@ var InternalViewForm = function () {
     ).toFixed(2);
   };
 
-  this.calculateNetCharge = function (grossCharge, discount, fuelDiscount) {
+  this.calculateNetCharge = function (grossCharge, discount, fuelDiscount, amc) {
     discountedRate = ((1 - discount / 100) * grossCharge).toFixed(2);
+    if (discountedRate > amc) {
+      discountedRate = discountedRate;
+    } else {
+      discountedRate = amc;
+    }
     fuelCharge = ((Number(discountedRate) * fuelDiscount) / 100).toFixed(2);
     netCharge = (Number(discountedRate) + Number(fuelCharge)).toFixed(2);
 
     console.log("discountedRate: ", discountedRate);
     console.log("fuelCharge: ", fuelCharge);
     console.log("netCharge: ", netCharge);
+  
 
     var obj = {
       grossCharge,

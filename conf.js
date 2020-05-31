@@ -33,7 +33,9 @@ exports.config = {
   //specs: ["NewFedexQuoteInternalView.js"],
   //specs: ["newyrcquoteinternalview.js"],
   //specs: ["newReddawayQuoteInternalView.js"],
-  specs: ["newyrcquoteinternalview.js"],
+  //specs: ["newyrcquotewithcompanyrules.js"],
+  //specs: ["newfedexquotewithcompanyrules.js"],
+  specs: ["newreddawayquotewithcompanyrules.js"],
 
   /*
   beforeLaunch: function () {
