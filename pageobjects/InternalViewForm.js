@@ -49,6 +49,7 @@ var InternalViewForm = function () {
   };
 
   this.setCompanyName = function (companyName) {
+    console.log('companyName', companyName);
     this.companyName = companyName;
   };
 
@@ -56,9 +57,12 @@ var InternalViewForm = function () {
     return this.companyName;
   };
 
-  // this.selectCompany = function () {
-  //   this.selectElemCompany.$('[value="305"]').click();
-  // };
+  this.selectCompany = function () {
+    console.log('this.selectcompanyrules');
+    this.selectElemCompany
+      .element(by.cssContainingText("option", this.getCompanyName()))
+      .click();
+  };
 
   this.selectCompanyForRules = function () {
     console.log('this.selectcompanyrules');
@@ -158,9 +162,7 @@ var InternalViewForm = function () {
 
   this.calculateNetCharge = function (grossCharge, discount, fuelDiscount, amc) {
     discountedRate = ((1 - discount / 100) * grossCharge).toFixed(2);
-    if (discountedRate > amc) {
-      discountedRate = discountedRate;
-    } else {
+    if (discountedRate < amc) {
       discountedRate = amc;
     }
     fuelCharge = ((Number(discountedRate) * fuelDiscount) / 100).toFixed(2);
