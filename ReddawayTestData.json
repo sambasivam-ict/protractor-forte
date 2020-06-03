@@ -10,6 +10,7 @@
       "password": "hRG7bcc"
     },
     "Nondirect_quote": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "98127",
       "Destinationzipcode": "59001",
       "Class": "65",
@@ -19,6 +20,7 @@
     },
 
     "Direct_quote": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "98027",
       "Destinationzipcode": "90001",
       "Class": "100",
@@ -29,6 +31,7 @@
     },
 
     "ca_quote": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "90001",
       "Destinationzipcode": "98127",
       "Class": "92",
@@ -39,6 +42,7 @@
     },
 
     "Highcost_quote": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "98009",
       "Destinationzipcode": "90034",
       "Class": "100",
@@ -50,6 +54,7 @@
     },
 
     "Highcostminvalueapplied_quote": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "98009",
       "Destinationzipcode": "90034",
       "Class": "100",
@@ -60,6 +65,7 @@
     },
 
     "Highcostmaxvalueapplied_quote": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "98009",
       "Destinationzipcode": "90034",
       "Class": "125",
@@ -110,6 +116,7 @@
     },
 
     "Highcostsanfransicomincostvalueapplied_quote": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "98009",
       "Destinationzipcode": "94102",
       "Class": "100",

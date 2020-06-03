@@ -7,7 +7,6 @@
     },
 
     "yrc_intra_state": {
-      "company_name": "TEST COMPANY FOR E2E",
       "amc_gt_dsc_rate": {
         "company_name": "TEST COMPANY FOR E2E",
         "Originzipcode": "80005",
@@ -61,7 +60,6 @@
       }
     },
     "yrc_inter_state": {
-      "company_name": "TEST COMPANY FOR E2E",
       "inter_state_high_cost": {
         "company_name": "TEST COMPANY FOR E2E",
         "Originzipcode": "80005",
@@ -80,7 +78,6 @@
       }
     },
     "yrc_special_rules": {
-      "company_name": "TEST COMPANY FOR E2E",
       "zip_to_zip": {
         "company_name": "TEST COMPANY FOR E2E",
         "Originzipcode": "80005",
@@ -152,7 +149,7 @@
       }
     },
     "yrc_costplus": {
-      "company_name": "TEST COMPANY FOR E2E",
+      "company_name": "TEST COMPANY FOR E2E COSTPLUS",
       "Originzipcode": "90005",
       "Destinationzipcode": "10001",
       "Class": "55",

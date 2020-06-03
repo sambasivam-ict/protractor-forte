@@ -18,10 +18,11 @@ var QuoteDetailForm = function () {
   this.fedexEcoArGrossElem = element(by.id("economyARTotalGrossCharge"));
   this.fedexEcoArDiscountedRateElem = element(by.id("economyARDiscountedRate"));
   this.fedexEcoArNetChargeElem = element(by.id("economyARNetCharge"));
+  
   // this.fedexEcoApHighCostElem = element(by.id(""));
-  // this.fedexEcoArHighCostElem = element(by.id(""));
-  // this.fedexEcoApCaChargeElem = element(by.id(""));
-  // this.fedexEcoArCaChargeElem = element(by.id(""));
+  this.fedexEcoArHighCostElem = element(by.id("economyARHighCost"));
+  this.fedexEcoApCaChargeElem = element(by.id("economyAPCACharge"));
+  this.fedexEcoArCaChargeElem = element(by.id("economyARCACharge"));
 
   this.fedexPriApGrossElem = element(by.id("priorityApTotal"));
   this.fedexPriArGrossElem = element(by.id("priorityArTotalGross"));
@@ -90,15 +91,15 @@ var QuoteDetailForm = function () {
   // this.getFedexEcoApHighCost = async function () {
   //   return await this.fedexEcoApHighCostElem.getText();
   // };
-  // this.getFedexEcoArHighCost = async function () {
-  //   return await this.fedexEcoArHighCostElem.getText();
-  // };
-  // this.getFedexEcoApCaCharge = async function () {
-  //   return await this.fedexEcoApCaChargeElem.getText();
-  // };
-  // this.getFedexEcoArCaCharge = async function () {
-  //   return await this.fedexEcoArCaChargeElem.getText();
-  // };
+  this.getFedexEcoArHighCost = async function () {
+    return await this.fedexEcoArHighCostElem.getText();
+  };
+  this.getFedexEcoApCaCharge = async function () {
+    return await this.fedexEcoApCaChargeElem.getText();
+  };
+  this.getFedexEcoArCaCharge = async function () {
+    return await this.fedexEcoArCaChargeElem.getText();
+  };
 
   this.fedexPriApGrossElem = element(by.id("priorityApTotal"));
   this.fedexPriArGrossElem = element(by.id("priorityArTotalGross"));
