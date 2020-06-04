@@ -6,7 +6,7 @@
       "password": "hRG7bcc"
     },
     "reddaway_regional_indirect": {
-      "company_name": "TEST COMPANY FOR E2E",
+      "company_name": "TEST COMPANY FOR E2E REDDAWAY",
       "Originzipcode": "59079",
       "Destinationzipcode": "90005",
       "Class": "85",
@@ -14,7 +14,7 @@
       "ap_gross_charge": "2984.94",
       "ar_gross_charge": "3960.15",
       "ap_discount": 82,
-      "ar_discount": 58,
+      "ar_discount": 88,
       "ap_fuel_charge": 26.3,
       "ar_fuel_charge": 26.3,
       "ap_amc": 140,
@@ -23,25 +23,25 @@
       "ca_charge": 8.95
     },
     "reddaway_regional_direct_intrastate": {
-      "company_name": "TEST COMPANY FOR E2E",
+      "company_name": "TEST COMPANY FOR E2E REDDAWAY",
       "Originzipcode": "80005",
       "Destinationzipcode": "80006",
       "Class": "85",
       "Weight": "690",
-      "ap_gross_charge": "457.36",
-      "ar_gross_charge": "",
-      "ap_discount": 77,
+      "ap_gross_charge": "348.24",
+      "ar_gross_charge": "457.36",
+      "ap_discount": 88.5,
       "ar_discount": 77,
       "ap_fuel_charge": 26.3,
       "ar_fuel_charge": 26.3,
-      "ap_amc": 120,
+      "ap_amc": 85,
       "ar_amc": 120,
       "high_cost": 0,
       "ca_charge": 0,
       "single_shipment": 0
     },
     "reddaway_regional_direct_interstate": {
-      "company_name": "TEST COMPANY FOR E2E",
+      "company_name": "TEST COMPANY FOR E2E REDDAWAY",
       "Originzipcode": "90005",
       "Destinationzipcode": "59079",
       "Class": "85",
@@ -58,7 +58,7 @@
       "ca_charge": 8.95
     },
     "reddaway_spl_rules_allwest_zip": {
-      "company_name": "TEST COMPANY FOR E2E",
+      "company_name": "TEST COMPANY FOR E2E REDDAWAY",
       "Originzipcode": "82001",
       "Destinationzipcode": "80005",
       "Class": "85",
@@ -75,7 +75,7 @@
       "ca_charge": 0
     },
     "reddaway_highcost_sfo_metro": {
-      "company_name": "TEST COMPANY FOR E2E",
+      "company_name": "TEST COMPANY FOR E2E REDDAWAY",
       "Originzipcode": "82001",
       "Destinationzipcode": "93902",
       "Class": "85",

@@ -12,6 +12,7 @@
     },
 
     "venilla_quote": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "20001",
       "Destinationzipcode": "80001",
       "Class": "85",
@@ -20,6 +21,7 @@
       "ar_gross_charge": "4078.63"
     },
     "ca_quote": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "90001",
       "Destinationzipcode": "98127",
       "Class": "125",
@@ -29,6 +31,7 @@
       "ca_charge": "9"
     },
     "non_direct_zip": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "98027",
       "Destinationzipcode": "92309",
       "Class": "100",
@@ -39,6 +42,7 @@
       "ship_type": "Non Direct"
     },
     "highcost_min": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "90001",
       "Destinationzipcode": "98243",
       "Class": "100",
@@ -49,6 +53,7 @@
       "ca_charge": "9"
     },
     "highcost_no_min": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "90002",
       "Destinationzipcode": "94005",
       "Class": "100",
@@ -59,6 +64,7 @@
       "ca_charge": "9"
     },
     "accssorial_quote_lg": {
+      "company_name":"ACTIVE SOLUTIONS LLC",
       "Originzipcode": "20001",
       "Destinationzipcode": "80001",
       "Class": "85",

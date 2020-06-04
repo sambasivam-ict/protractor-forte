@@ -32,8 +32,10 @@ exports.config = {
   seleniumAddress: "http://localhost:4444/wd/hub",
   //specs: ["NewFedexQuoteInternalView.js"],
   //specs: ["newyrcquoteinternalview.js"],
-  //specs: ["newReddawayQuoteInternalView.js"],
-  specs: ["newyrcquoteinternalview.js"],
+  specs: ["newReddawayQuoteInternalView.js"],
+ // specs: ["newyrcquotewithcompanyrules.js"],
+ // specs: ["newfedexquotewithcompanyrules.js"],
+ //specs: ["newreddawayquotewithcompanyrules.js"],
 
   /*
   beforeLaunch: function () {
