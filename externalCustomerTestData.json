@@ -1,0 +1,50 @@
+{
+    "data": {
+      "environment_url": "http://54.176.155.237:3000/",
+      "ar_discount": 85,
+      "ar_fuel_charge": 24,
+      "ap_fuel_charge": 24,
+      "ar_nondirect_discount": 80,
+  
+      "login_credentials_customer": {
+        "user_name": "test",
+        "password": "Test123$"
+      },
+
+      "yrc_interstate": {
+        "company_name": "EXTERNAL CUSTOMER E2E TESTING",
+        "Originzipcode": "90004",
+        "Destinationzipcode": "80005",
+        "Class": "85",
+        "Weight": "1560",
+        "Carrier": "YRC",
+        "ar_gross_charge": "3834.58",
+        "ar_discount": 45,
+        "ar_fuel_charge": 24,
+        "ar_amc": 150,
+        "ca_charge": 9
+      },
+      
+      "yrc_intrastate": {
+        "company_name": "EXTERNAL CUSTOMER E2E TESTING",
+        "Originzipcode": "90005",
+        "Destinationzipcode": "90005",
+        "Class": "100",
+        "Weight": "500",
+        "Carrier": "YRC"
+      
+      },
+      "fedex_Economy_Regional": {
+        "company_name": "EXTERNAL CUSTOMER E2E TESTING",
+        "Originzipcode": "35006",
+        "Destinationzipcode": "06006",
+        "Class": "175",
+        "Weight": "360",
+        "Carrier": "FEDEX ECONOMY",
+        "ar_gross_charge": "3370.69",
+        "ar_discount": 33,
+        "ar_fuel_charge": 24,
+        "ar_amc": 45
+      }
+    }
+}
