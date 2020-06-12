@@ -20,7 +20,7 @@ var masterDataARDiscount = [];
 var localStorageValues = new LocalStorageValues();
 
 var quoteDetailForm = new QuoteDetailForm()
-// var rateQuoteSelectForm = new RateQuoteSelectForm();
+
 describe('External Customer logs in for creating external quotes', function () {
   beforeAll(function () {
     browser.sleep(3000);
@@ -43,30 +43,18 @@ describe('External Customer logs in for creating external quotes', function () {
       .window()
       .maximize()
     browser.sleep(3000);
-
-    // localStorageValues
-    //   .getApMasterDataLocalStorage()
-    //   .then(function (returnData) {
-    //     masterDataAPDiscount = returnData;
-    //   });
-
-    // localStorageValues
-    //   .getArMasterDataLocalStorage()
-    //   .then(function (returnData) {
-    //     masterDataARDiscount = returnData;
-    //   });
   });
   afterAll(function () {
     browser.close();
   });
-  it('should move on to the next screen Dashboard to Request a rate quote', function () {
+  it('should move from Dashboard to Request a rate quote', function () {
     browser.sleep(2000);
     var externalDashboardForm = new ExternalDashboardForm();
     externalDashboardForm.clickOnExternalDashboard();
     browser.sleep(2000);
   });
 
-  it('should move on to the next screen Request a rate quote to Ltl quote', function () {
+  it('should move from Request a rate quote to Ltl quote', function () {
     browser.sleep(2000);
     var rateQuoteSelectForm = new RateQuoteSelectForm();
     rateQuoteSelectForm.clickOnLtlQuote();
@@ -158,7 +146,7 @@ describe('External Customer logs in for creating external quotes', function () {
     });
   });
 
-  it('should create quote for yrc intrastate carrier result a error message', function () {
+  it('should create quote for yrc intrastate carrier will result a error message', function () {
     console.log('yrc intrastate quote creation');
     browser.sleep(5000).then(function () {
       var customerViewForm = new CustomerViewForm();
@@ -181,19 +169,7 @@ describe('External Customer logs in for creating external quotes', function () {
       browser.sleep(2000);
        expect(true).toEqual(true);
        customerViewForm.clickGetQuote();
-
        browser.sleep(10000);
-      // browser.sleep(10000).then(function () {
-      //   browser.sleep(2000);
-      //   const quoteObj = customerViewForm.calculateNetCharge(
-      //     dataInput.ar_gross_charge,
-      //     dataInput.ar_discount,
-      //     dataInput.ar_fuel_charge,
-      //     dataInput.ar_amc
-      //   );
-
-      //   browser.sleep(5000);
-      // });
     });
   });
 

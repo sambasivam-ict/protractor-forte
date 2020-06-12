@@ -36,7 +36,9 @@ exports.config = {
  // specs: ["newyrcquotewithcompanyrules.js"],
  // specs: ["newfedexquotewithcompanyrules.js"],
  //specs: ["newreddawayquotewithcompanyrules.js"],
- specs: ["externalQuotecreation.js"],
+// specs: ["externalQuotecreation.js"],
+ specs: ["createbol.js"],
+
 
   /*
   beforeLaunch: function () {
