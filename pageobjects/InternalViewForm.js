@@ -29,6 +29,10 @@ var InternalViewForm = function () {
 
   this.clearAllBtn = element(by.id("clear"));
 
+  this.welcomeUserElem = element(by.id('navbarDropdownMenuLink'));
+    this.welcomeMenuElem = element(by.id('wlcm-menu'));
+    this.logoutElem = element(by.id('wlcm-item'));
+
   //this.getQuoteElem = $("button[id=getQuote]");
 
   //this.selectCompanyElem = $(by.id("customer"));
@@ -153,6 +157,18 @@ var InternalViewForm = function () {
     this.ClickGetQuoteElem.click();
   };
 
+  this.clickOnWelcomeUser = function () {
+    this.welcomeUserElem.click();
+  };
+
+  this.clickOnWelcomeMenu = function () {
+    this.welcomeMenuElem.click();
+  };
+
+  this.clickOnLogoutUser = function () {
+    this.logoutElem.click();
+  };
+  
   this.calulatHighCostChargeFromCWT = function () {
     return (
       (Number(this.Weight) / 100) *

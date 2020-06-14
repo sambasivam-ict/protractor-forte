@@ -1,6 +1,7 @@
 {
   "data": {
     "environment_url": "http://54.176.155.237:3000/",
+    "environment_stageUrl": "http://52.52.76.24:3000/",
     "ar_discount": 85,
     "ar_fuel_charge": 24,
     "ap_fuel_charge": 24,

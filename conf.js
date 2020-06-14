@@ -30,14 +30,13 @@ exports.config = {
 
   framework: "jasmine",
   seleniumAddress: "http://localhost:4444/wd/hub",
-  //specs: ["NewFedexQuoteInternalView.js"],
-  //specs: ["newyrcquoteinternalview.js"],
-  //specs: ["newReddawayQuoteInternalView.js"],
- // specs: ["newyrcquotewithcompanyrules.js"],
- // specs: ["newfedexquotewithcompanyrules.js"],
- //specs: ["newreddawayquotewithcompanyrules.js"],
-// specs: ["externalQuotecreation.js"],
- specs: ["createbol.js"],
+ specs: ["newyrcquotewithcompanyrules.js", "newfedexquotewithcompanyrules.js", "newreddawayquotewithcompanyrules.js", "externalQuotecreation.js", "createbol.js"],
+ //"newyrcquoteinternalview.js",  "NewFedexQuoteInternalView.js", "newReddawayQuoteInternalView.js"
+ //"newyrcquotewithcompanyrules.js", "newfedexquotewithcompanyrules.js", "newreddawayquotewithcompanyrules.js", "externalQuotecreation.js", "createbol.js"],
+ // specs: ["newReddawayQuoteInternalView.js" ],
+  
+// specs: ["newyrcquotewithcompanyrules.js", "newfedexquotewithcompanyrules.js", "newreddawayquotewithcompanyrules.js", "externalQuotecreation.js", "createbol.js"],
+//specs: ["externalQuotecreation.js", "createbol.js"],
 
 
   /*
