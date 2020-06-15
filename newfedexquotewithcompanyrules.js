@@ -6,9 +6,11 @@ var LocalStorageValues = require('./pageobjects/LocalStorateValues');
 
 var LtlQuoteForm = require('./common/createltlquote');
 
-var testDataInfo = require('./fedex_testdata_rules.json');
+var testDataInfo = require('./TestData/fedex_testdata_rules.json');
 
 var QuoteDetailForm = require('./pageobjects/QuoteDetailForm');
+
+var environment = require('./environment/env');
 
 var masterDataAPDiscount = [];
 var masterDataARDiscount = [];
@@ -19,7 +21,11 @@ var quoteDetailForm = new QuoteDetailForm();
 describe('Fedex Economy Quote Creation by admin for company that has rules', function () {
   beforeAll(function () {
     browser.ignoreSynchronization = true;
-    browser.get(testDataInfo.data.environment_url);
+    if (environment.isStage == false) {
+      browser.get(environment.dev_url);
+      } else {
+        browser.get(environment.stage_url);
+      }
 
     var loginPageObj = new LogisticsLoginPage();
 
@@ -52,7 +58,13 @@ describe('Fedex Economy Quote Creation by admin for company that has rules', fun
   });
 
   afterAll(function () {
-    browser.close();
+  //  browser.close();
+  browser.sleep(2000);
+  var internalForm = new InternalForm();
+  internalForm.clickOnWelcomeUser();
+  browser.sleep(2000);
+  internalForm.clickOnLogoutUser();
+  browser.sleep(2000);
   });
 
   it('Fedex Regional - Net Charge should be calculated properly with configured discounts', function () {

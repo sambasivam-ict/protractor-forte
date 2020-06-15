@@ -1,327 +1,357 @@
-var LogisticsLoginPage = require("./pageobjects/LoginForm");
+var LogisticsLoginPage = require('./pageobjects/LoginForm')
 
-var InternalForm = require("./pageobjects/InternalViewForm");
+var InternalForm = require('./pageobjects/InternalViewForm')
 
-var LocalStorageValues = require("./pageobjects/LocalStorateValues");
+var LocalStorageValues = require('./pageobjects/LocalStorateValues')
 
-var QuoteDetailForm = require("./pageobjects/QuoteDetailForm");
+var QuoteDetailForm = require('./pageobjects/QuoteDetailForm')
 
-var LtlQuoteForm = require("./common/createltlquote");
+var LtlQuoteForm = require('./common/createltlquote')
 
-var QuoteDetailForm = require('./pageobjects/QuoteDetailForm');
+var QuoteDetailForm = require('./pageobjects/QuoteDetailForm')
 
-var testDataInfo = require("./testdata.json");
+var testDataInfo = require('./TestData/testdata.json')
 
-var masterDataAPDiscount = [];
-var masterDataARDiscount = [];
+var environment = require('./environment/env')
 
-var localStorageValues = new LocalStorageValues();
-var quoteDetailForm = new QuoteDetailForm();
+var ExternalDashboardForm = require('./pageobjects/ExternalDashboardForm');
 
-describe("YRC Quote Creation by admin testcases", function () {
+var masterDataAPDiscount = []
+var masterDataARDiscount = []
+
+var localStorageValues = new LocalStorageValues()
+var quoteDetailForm = new QuoteDetailForm()
+
+describe('YRC Quote Creation by admin testcases', function () {
   beforeAll(function () {
+    console.log('test data:', testDataInfo.data.venilla_quote.Class)
+    console.log('environment', environment);
+    browser.ignoreSynchronization = true
+    if (environment.isStage == false) {
+      browser.get(environment.dev_url)
+    } else {
+      browser.get(environment.stage_url)
+    }
 
-    console.log("test data:", testDataInfo.data.venilla_quote.Class);
+    var loginPageObj = new LogisticsLoginPage()
 
-    browser.ignoreSynchronization = true;
-    browser.get(testDataInfo.data.environment_url);
+    var credentials = testDataInfo.data.login_credentials_admin
+    loginPageObj.setUserName(credentials.user_name)
+    loginPageObj.setPassWord(credentials.password)
 
-    var loginPageObj = new LogisticsLoginPage();
+    loginPageObj.enterUserName()
+    loginPageObj.enterPassword()
 
-    var credentials = testDataInfo.data.login_credentials_admin;
-    loginPageObj.setUserName(credentials.user_name);
-    loginPageObj.setPassWord(credentials.password);
+    loginPageObj.clickSubmitButton()
 
-    loginPageObj.enterUserName();
-    loginPageObj.enterPassword();
-
-    loginPageObj.clickSubmitButton();
-
-    browser.driver.manage().window().maximize();
-    browser.sleep(3000);
+    browser.driver
+      .manage()
+      .window()
+      .maximize()
+    browser.sleep(3000)
 
     localStorageValues
       .getApMasterDataLocalStorage()
       .then(function (returnData) {
-        masterDataAPDiscount = returnData;
-      });
+        masterDataAPDiscount = returnData
+      })
 
     localStorageValues
       .getArMasterDataLocalStorage()
       .then(function (returnData) {
-        masterDataARDiscount = returnData;
-      });
-  });
+        masterDataARDiscount = returnData
+      })
+  })
 
   afterAll(function () {
-    browser.close();
-  });
+    browser.sleep(2000);
+    var internalForm = new InternalForm();
+    internalForm.clickOnWelcomeUser();
+    browser.sleep(2000);
+    internalForm.clickOnLogoutUser();
+    browser.sleep(2000);
+  })
 
-  it("should calculate the net charge properly for vanilla inputs", function () {
+  it('should calculate the net charge properly for vanilla inputs', function () {
     browser.sleep(5000).then(function () {
-      var internalForm = new InternalForm();
-      var ltlQuoteForm = new LtlQuoteForm();
+      var internalForm = new InternalForm()
+      var ltlQuoteForm = new LtlQuoteForm()
 
-      var dataObj = testDataInfo.data.venilla_quote;
-      internalForm.setCompanyName(dataObj.company_name);
-      ltlQuoteForm.setDataInObject(dataObj, internalForm);
-      ltlQuoteForm.createLtlQuote(browser, internalForm);
-      internalForm.clickGetQuote();
+      var dataObj = testDataInfo.data.venilla_quote
+      internalForm.setCompanyName(dataObj.company_name)
+      ltlQuoteForm.setDataInObject(dataObj, internalForm)
+      ltlQuoteForm.createLtlQuote(browser, internalForm)
+      internalForm.clickGetQuote()
 
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonYrc();
+        internalForm.clickViewButtonYrc()
 
-        browser.sleep(2000);
+        browser.sleep(2000)
 
         const quoteObj = internalForm.calculateNetCharge(
           dataObj.ar_gross_charge,
           localStorageValues.getArMasterDataForYRC().discount,
           localStorageValues.getArMasterDataForYRC().fuelsurcharge,
           localStorageValues.getArMasterDataForYRC().amc
-        );
+        )
 
         browser
           .actions()
           .mouseMove(quoteDetailForm.yrcArNetChargeElem)
-          .perform();
-        browser.sleep(1000);
+          .perform()
+        browser.sleep(1000)
 
         expect(quoteDetailForm.getYrcApGrossCharge()).toEqual(
-          "$" + dataObj.ap_gross_charge
-        );
+          '$' + dataObj.ap_gross_charge
+        )
         expect(quoteDetailForm.getYrcArGrossCharge()).toEqual(
-          "$" + dataObj.ar_gross_charge
-        );
+          '$' + dataObj.ar_gross_charge
+        )
         expect(quoteDetailForm.getYrcArDiscountedRate()).toEqual(
-          "$" + quoteObj.discountedRate
-        );
+          '$' + quoteObj.discountedRate
+        )
         expect(quoteDetailForm.getYrcArNetCharge()).toEqual(
-          "$" + quoteObj.netCharge
-        );
-      });
-    });
+          '$' + quoteObj.netCharge
+        )
+      })
+    })
 
-    browser.sleep(3000);
-  });
+    browser.sleep(3000)
+  })
 
-  it("should calculate the net charge properly for either ORIGIN or DESTINATION BEING CA", function () {
+  it('should calculate the net charge properly for either ORIGIN or DESTINATION BEING CA', function () {
     browser.sleep(3000).then(function () {
-      console.log("inside the second scnerio..");
-      $("body").sendKeys(protractor.Key.ESCAPE);
+      console.log('inside the second scnerio..')
+      $('body').sendKeys(protractor.Key.ESCAPE)
 
-      var internalForm = new InternalForm();
-      var ltlQuoteForm = new LtlQuoteForm();
+      var internalForm = new InternalForm()
+      var ltlQuoteForm = new LtlQuoteForm()
 
-      browser.sleep(2000);
+      browser.sleep(2000)
 
-      var dataObj = testDataInfo.data.ca_quote;
-      internalForm.setCompanyName(dataObj.company_name);
-      ltlQuoteForm.setDataInObject(dataObj, internalForm);
-      ltlQuoteForm.createLtlQuote(browser, internalForm);
-      internalForm.clickGetQuote();
+      var dataObj = testDataInfo.data.ca_quote
+      internalForm.setCompanyName(dataObj.company_name)
+      ltlQuoteForm.setDataInObject(dataObj, internalForm)
+      ltlQuoteForm.createLtlQuote(browser, internalForm)
+      internalForm.clickGetQuote()
 
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonYrc();
-        browser.sleep(2000);
+        internalForm.clickViewButtonYrc()
+        browser.sleep(2000)
 
         const quoteObj = internalForm.calculateNetCharge(
           dataObj.ar_gross_charge,
           localStorageValues.getArMasterDataForYRC().discount,
           localStorageValues.getArMasterDataForYRC().fuelsurcharge,
           localStorageValues.getArMasterDataForYRC().amc
-        );
-
-        expect(quoteDetailForm.getYrcApGrossCharge()).toEqual("$" + dataObj.ap_gross_charge);
-        expect(quoteDetailForm.getYrcArGrossCharge()).toEqual("$" + dataObj.ar_gross_charge);
-
-        expect(quoteDetailForm.getYrcApCaCharge()).toEqual(
-          "CA Charge - $" + localStorageValues.getApMasterDataForYRC().caCharge
-        );
-        expect(quoteDetailForm.getYrcArCaCharge()).toEqual(
-          "CA Charge - $" + localStorageValues.getArMasterDataForYRC().caCharge
-        );
-        expect(quoteDetailForm.getYrcArDiscountedRate()).toEqual(
-          "$" + quoteObj.discountedRate
-        );
-        expect(quoteDetailForm.getYrcArNetCharge()).toEqual("$" + quoteObj.netCharge);
-      });
-    });
-    browser.sleep(3000);
-  });
-
-  it("should calculate the net charge properly for Yrc Quote creations by non direct", function () {
-    browser.sleep(5000).then(function () {
-      console.log("inside the third  scanerio ..");
-      $("body").sendKeys(protractor.Key.ESCAPE);
-      var internalForm = new InternalForm();
-      var ltlQuoteForm = new LtlQuoteForm();
-      browser.sleep(2000);
-
-      var dataObj = testDataInfo.data;
-      var dataInput = dataObj.non_direct_zip;
-      internalForm.setCompanyName(dataInput.company_name);
-      ltlQuoteForm.setDataInObject(dataObj, internalForm);
-      ltlQuoteForm.createLtlQuote(browser, internalForm);
-      internalForm.clickGetQuote();
-
-      browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonYrc();
-
-        browser.sleep(2000);
-
-        const quoteObj = internalForm.calculateNetCharge(
-          dataInput.ar_gross_charge,
-          dataObj.ar_nondirect_discount,
-          localStorageValues.getArMasterDataForYRC().fuelsurcharge,
-          localStorageValues.getArMasterDataForYRC().amc
-        );
-
-        quoteDetailForm.getYrcShipTypes().then(function (text) {
-          expect(text).toEqual(dataInput.ship_type);
-        });
-
-        expect(quoteDetailForm.getYrcApGrossCharge()).toEqual("$" + dataInput.ap_gross_charge);
-        expect(quoteDetailForm.getYrcArGrossCharge()).toEqual("$" + dataInput.ar_gross_charge);
-
-        expect(quoteDetailForm.getYrcApCaCharge()).toEqual(
-          "CA Charge - $" + localStorageValues.getApMasterDataForYRC().caCharge
-        );
-        expect(quoteDetailForm.getYrcArCaCharge()).toEqual(
-          "CA Charge - $" + localStorageValues.getArMasterDataForYRC().caCharge
-        );
-
-        expect(quoteDetailForm.getYrcArDiscountedRate()).toEqual(
-          "$" + quoteObj.discountedRate
-        );
-
-        expect(quoteDetailForm.getYrcArNetCharge()).toEqual("$" + quoteObj.netCharge);
-      });
-    });
-    browser.sleep(2000);
-  });
-
-  it("should calculate the net charge properly for Yrc quote creation for Highcost related to Min charge", function () {
-    browser.sleep(3000).then(function () {
-      console.log("inside the fourth scnerio..");
-      $("body").sendKeys(protractor.Key.ESCAPE);
-
-      var internalForm = new InternalForm();
-      var ltlQuoteForm = new LtlQuoteForm();
-      browser.sleep(2000);
-
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.highcost_min;
-      internalForm.setCompanyName(dataInput.company_name);
-      ltlQuoteForm.setDataInObject(dataInput, internalForm);
-      ltlQuoteForm.createLtlQuote(browser, internalForm);
-      internalForm.clickGetQuote();
-
-
-      browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonYrc();
-
-        browser.sleep(2000);
-
-        const quoteObj = internalForm.calculateNetCharge(
-          dataInput.ar_gross_charge,
-          dataObj.ar_nondirect_discount,
-          dataObj.ar_fuel_charge,
-          localStorageValues.getArMasterDataForYRC().amc
-        );
+        )
 
         expect(quoteDetailForm.getYrcApGrossCharge()).toEqual(
-          "$" + dataInput.ap_gross_charge
-        );
+          '$' + dataObj.ap_gross_charge
+        )
         expect(quoteDetailForm.getYrcArGrossCharge()).toEqual(
-          "$" + dataInput.ar_gross_charge
-        );
+          '$' + dataObj.ar_gross_charge
+        )
 
         expect(quoteDetailForm.getYrcApCaCharge()).toEqual(
-          "CA Charge - $" + dataInput.ca_charge
-        );
+          'CA Charge - $' + Number(localStorageValues.getApMasterDataForYRC().caCharge)
+        )
         expect(quoteDetailForm.getYrcArCaCharge()).toEqual(
-          "CA Charge - $" + dataInput.ca_charge
-        );
-
-        // for high cost.
-        expect(quoteDetailForm.getYrcApHighCost()).toEqual(
-          "High Cost - $" + dataInput.high_cost_charge
-        );
-        expect(quoteDetailForm.getYrcArHighCost()).toEqual(
-          "High Cost - $" + dataInput.high_cost_charge
-        );
-
+          'CA Charge - $' + Number(localStorageValues.getArMasterDataForYRC().caCharge)
+        )
         expect(quoteDetailForm.getYrcArDiscountedRate()).toEqual(
-          "$" + quoteObj.discountedRate
-        );
+          '$' + quoteObj.discountedRate
+        )
+        expect(quoteDetailForm.getYrcArNetCharge()).toEqual(
+          '$' + quoteObj.netCharge
+        )
+      })
+    })
+    browser.sleep(3000)
+  })
 
-        expect(quoteDetailForm.getYrcArNetCharge()).toEqual("$" + quoteObj.netCharge);
-      });
-    });
-    browser.sleep(4000);
-  });
+  // it('should calculate the net charge properly for Yrc Quote creations by non direct', function () {
+  //   browser.sleep(5000).then(function () {
+  //     console.log('inside the third  scanerio ..')
+  //     $('body').sendKeys(protractor.Key.ESCAPE)
+  //     var internalForm = new InternalForm()
+  //     var ltlQuoteForm = new LtlQuoteForm()
+  //     browser.sleep(2000)
 
-  it("should calculate the net charge properly for  Yrc Quote creation for Highcost zip with no min charge", function () {
+  //     var dataObj = testDataInfo.data
+  //     var dataInput = dataObj.non_direct_zip
+  //     internalForm.setCompanyName(dataInput.company_name)
+  //     ltlQuoteForm.setDataInObject(dataObj, internalForm)
+  //     ltlQuoteForm.createLtlQuote(browser, internalForm)
+  //     internalForm.clickGetQuote()
+
+  //     browser.sleep(10000).then(function () {
+  //       internalForm.clickViewButtonYrc()
+
+  //       browser.sleep(2000)
+
+  //       const quoteObj = internalForm.calculateNetCharge(
+  //         dataInput.ar_gross_charge,
+  //         dataObj.ar_nondirect_discount,
+  //         localStorageValues.getArMasterDataForYRC().fuelsurcharge,
+  //         localStorageValues.getArMasterDataForYRC().amc
+  //       )
+
+  //       quoteDetailForm.getYrcShipTypes().then(function (text) {
+  //         expect(text).toEqual(dataInput.ship_type)
+  //       })
+
+  //       expect(quoteDetailForm.getYrcApGrossCharge()).toEqual(
+  //         '$' + dataInput.ap_gross_charge
+  //       )
+  //       expect(quoteDetailForm.getYrcArGrossCharge()).toEqual(
+  //         '$' + dataInput.ar_gross_charge
+  //       )
+
+  //       expect(quoteDetailForm.getYrcApCaCharge()).toEqual(
+  //         'CA Charge - $' + Number(localStorageValues.getApMasterDataForYRC().caCharge)
+  //       )
+  //       expect(quoteDetailForm.getYrcArCaCharge()).toEqual(
+  //         'CA Charge - $' + Number(localStorageValues.getArMasterDataForYRC().caCharge)
+  //       )
+
+  //       expect(quoteDetailForm.getYrcArDiscountedRate()).toEqual(
+  //         '$' + quoteObj.discountedRate
+  //       )
+
+  //       expect(quoteDetailForm.getYrcArNetCharge()).toEqual(
+  //         '$' + quoteObj.netCharge
+  //       )
+  //     })
+  //   })
+  //   browser.sleep(2000)
+  // })
+
+  // it('should calculate the net charge properly for Yrc quote creation for Highcost related to Min charge', function () {
+  //   browser.sleep(3000).then(function () {
+  //     console.log('inside the fourth scnerio..')
+  //     $('body').sendKeys(protractor.Key.ESCAPE)
+
+  //     var internalForm = new InternalForm()
+  //     var ltlQuoteForm = new LtlQuoteForm()
+  //     browser.sleep(2000)
+
+  //     var dataObj = testDataInfo.data
+  //     var dataInput = dataObj.highcost_min
+  //     internalForm.setCompanyName(dataInput.company_name)
+  //     ltlQuoteForm.setDataInObject(dataInput, internalForm)
+  //     ltlQuoteForm.createLtlQuote(browser, internalForm)
+  //     internalForm.clickGetQuote()
+
+  //     browser.sleep(10000).then(function () {
+  //       internalForm.clickViewButtonYrc()
+
+  //       browser.sleep(2000)
+
+  //       const quoteObj = internalForm.calculateNetCharge(
+  //         dataInput.ar_gross_charge,
+  //         dataObj.ar_nondirect_discount,
+  //         dataObj.ar_fuel_charge,
+  //         localStorageValues.getArMasterDataForYRC().amc
+  //       )
+
+  //       expect(quoteDetailForm.getYrcApGrossCharge()).toEqual(
+  //         '$' + dataInput.ap_gross_charge
+  //       )
+  //       expect(quoteDetailForm.getYrcArGrossCharge()).toEqual(
+  //         '$' + dataInput.ar_gross_charge
+  //       )
+
+  //       expect(quoteDetailForm.getYrcApCaCharge()).toEqual(
+  //         'CA Charge - $' + dataInput.ca_charge
+  //       )
+  //       expect(quoteDetailForm.getYrcArCaCharge()).toEqual(
+  //         'CA Charge - $' + dataInput.ca_charge
+  //       )
+
+  //       // // for high cost.
+  //       // expect(quoteDetailForm.getYrcApHighCost()).toEqual(
+  //       //   'High Cost - $' + dataInput.high_cost_charge
+  //       // )
+  //       // expect(quoteDetailForm.getYrcArHighCost()).toEqual(
+  //       //   'High Cost - $' + dataInput.high_cost_charge
+  //       // )
+
+  //       expect(quoteDetailForm.getYrcArDiscountedRate()).toEqual(
+  //         '$' + quoteObj.discountedRate
+  //       )
+
+  //       expect(quoteDetailForm.getYrcArNetCharge()).toEqual(
+  //         '$' + quoteObj.netCharge
+  //       )
+  //     })
+  //   })
+  //   browser.sleep(4000)
+  // })
+
+  it('should calculate the net charge properly for  Yrc Quote creation for Highcost zip with no min charge', function () {
     browser.sleep(5000).then(function () {
-      console.log("inside the fifth scnerio..");
-      $("body").sendKeys(protractor.Key.ESCAPE);
+      console.log('inside the fifth scnerio..')
+      $('body').sendKeys(protractor.Key.ESCAPE)
 
-      var internalForm = new InternalForm();
+      var internalForm = new InternalForm()
 
-      var ltlQuoteForm = new LtlQuoteForm();
-      browser.sleep(2000);
+      var ltlQuoteForm = new LtlQuoteForm()
+      browser.sleep(2000)
 
-      var dataObj = testDataInfo.data;
-      var dataInput = dataObj.highcost_no_min;
-      internalForm.setCompanyName(dataInput.company_name);
-      ltlQuoteForm.setDataInObject(dataInput, internalForm);
-      ltlQuoteForm.createLtlQuote(browser, internalForm);
-      internalForm.clickGetQuote();
-      browser.sleep(3000);
+      var dataObj = testDataInfo.data
+      var dataInput = dataObj.highcost_no_min
+      internalForm.setCompanyName(dataInput.company_name)
+      ltlQuoteForm.setDataInObject(dataInput, internalForm)
+      ltlQuoteForm.createLtlQuote(browser, internalForm)
+      internalForm.clickGetQuote()
+      browser.sleep(3000)
 
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonYrc();
+        internalForm.clickViewButtonYrc()
 
-        browser.sleep(2000);
+        browser.sleep(2000)
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
           dataObj.ar_discount,
           dataObj.ar_fuel_charge,
           localStorageValues.getArMasterDataForYRC().amc
-        );
+        )
 
         expect(quoteDetailForm.getYrcApGrossCharge()).toEqual(
-          "$" + dataInput.ap_gross_charge
-        );
+          '$' + dataInput.ap_gross_charge
+        )
         expect(quoteDetailForm.getYrcArGrossCharge()).toEqual(
-          "$" + dataInput.ar_gross_charge
-        );
+          '$' + dataInput.ar_gross_charge
+        )
 
         expect(quoteDetailForm.getYrcApCaCharge()).toEqual(
-          "CA Charge - $" + dataInput.ca_charge
-        );
+          'CA Charge - $' + dataInput.ca_charge
+        )
         expect(quoteDetailForm.getYrcArCaCharge()).toEqual(
-          "CA Charge - $" + dataInput.ca_charge
-        );
+          'CA Charge - $' + dataInput.ca_charge
+        )
 
-        // for high cost.
-        expect(quoteDetailForm.getYrcApHighCost()).toEqual(
-          "High Cost - $" + dataInput.high_cost_charge
-        );
-        expect(quoteDetailForm.getYrcArHighCost()).toEqual(
-          "High Cost - $" + dataInput.high_cost_charge
-        );
+        // // for high cost.
+        // expect(quoteDetailForm.getYrcApHighCost()).toEqual(
+        //   'High Cost - $' + dataInput.high_cost_charge
+        // )
+        // expect(quoteDetailForm.getYrcArHighCost()).toEqual(
+        //   'High Cost - $' + dataInput.high_cost_charge
+        // )
 
         expect(quoteDetailForm.getYrcArDiscountedRate()).toEqual(
-          "$" + quoteObj.discountedRate
-        );
+          '$' + quoteObj.discountedRate
+        )
 
-        expect(quoteDetailForm.getYrcArNetCharge()).toEqual("$" + quoteObj.netCharge);
-      });
-    });
-    browser.sleep(4000);
-  });
+        expect(quoteDetailForm.getYrcArNetCharge()).toEqual(
+          '$' + quoteObj.netCharge
+        )
+      })
+    })
+    browser.sleep(4000)
+  })
 
   /*
   it("should calculate the net charge properly for Yrc Quote creation for Accessorial Quote of LiftGate", function () {
@@ -385,4 +415,4 @@ describe("YRC Quote Creation by admin testcases", function () {
     browser.sleep(4000);
   });
   */
-});
+})
