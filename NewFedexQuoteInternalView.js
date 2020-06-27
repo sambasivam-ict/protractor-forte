@@ -1,46 +1,56 @@
-var LogisticsLoginPage = require('./pageobjects/LoginForm')
+var LogisticsLoginPage = require("./pageobjects/LoginForm");
 
-var InternalForm = require('./pageobjects/InternalViewForm')
+var InternalForm = require("./pageobjects/InternalViewForm");
 
-var LocalStorageValues = require('./pageobjects/LocalStorateValues')
+var LocalStorageValues = require("./pageobjects/LocalStorateValues");
 
-var testDataInfo = require('./TestData/FedexTestData.json')
-var QuoteDetailForm = require('./pageobjects/QuoteDetailForm')
-var LtlQuoteForm = require('./common/createltlquote')
-var environment = require('./environment/env')
-var ExternalDashboardForm = require('./pageobjects/ExternalDashboardForm')
-var quoteDetailForm = new QuoteDetailForm()
+var testDataInfo = require("./TestData/FedexTestData.json");
+var QuoteDetailForm = require("./pageobjects/QuoteDetailForm");
+var LtlQuoteForm = require("./common/createltlquote");
+var environment = require("./environment/env");
+var ExternalDashboardForm = require("./pageobjects/ExternalDashboardForm");
+var quoteDetailForm = new QuoteDetailForm();
 
-describe('Fedex Economy Quote Creation by admin testcases in Internal Page', function () {
+var localStorageValues = new LocalStorageValues();
+describe("Fedex Economy Quote Creation by admin testcases in Internal Page", function () {
   beforeAll(function () {
     //Attn Deepak: example to read the json: am reading the test data frm testdata.json
 
-    console.log('test data:', testDataInfo.data.Inter_regional.Class)
+    console.log("test data:", testDataInfo.data.Inter_regional.Class);
 
-    browser.ignoreSynchronization = true
+    browser.ignoreSynchronization = true;
     if (environment.isStage == false) {
-      browser.get(environment.dev_url)
+      browser.get(environment.dev_url);
     } else {
-      browser.get(environment.stage_url)
+      browser.get(environment.stage_url);
     }
 
-    var loginPageObj = new LogisticsLoginPage()
+    var loginPageObj = new LogisticsLoginPage();
 
-    var credentials = testDataInfo.data.login_credentials_admin
-    loginPageObj.setUserName(credentials.user_name)
-    loginPageObj.setPassWord(credentials.password)
+    var credentials = testDataInfo.data.login_credentials_admin;
+    loginPageObj.setUserName(credentials.user_name);
+    loginPageObj.setPassWord(credentials.password);
 
-    loginPageObj.enterUserName()
-    loginPageObj.enterPassword()
+    loginPageObj.enterUserName();
+    loginPageObj.enterPassword();
 
-    loginPageObj.clickSubmitButton()
+    loginPageObj.clickSubmitButton();
 
-    browser.driver
-      .manage()
-      .window()
-      .maximize()
-    browser.sleep(3000)
-  })
+    browser.driver.manage().window().maximize();
+    browser.sleep(3000);
+
+    localStorageValues
+      .getApMasterDataLocalStorage()
+      .then(function (returnData) {
+        masterDataAPDiscount = returnData;
+      });
+
+    localStorageValues
+      .getArMasterDataLocalStorage()
+      .then(function (returnData) {
+        masterDataARDiscount = returnData;
+      });
+  });
 
   afterAll(function () {
     browser.sleep(2000);
@@ -49,21 +59,21 @@ describe('Fedex Economy Quote Creation by admin testcases in Internal Page', fun
     browser.sleep(2000);
     internalForm.clickOnLogoutUser();
     browser.sleep(2000);
-  })
+  });
 
-  it('should calculate the net charge properly for Inter-Regional zipcodes', function () {
+  it("should calculate the net charge properly for InterRegional zipcodes", function () {
     browser.sleep(3000).then(function () {
-      var internalForm = new InternalForm()
-      var ltlQuoteForm = new LtlQuoteForm()
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.Inter_regional
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
+      var dataObj = testDataInfo.data;
+      var dataInput = dataObj.Inter_regional;
 
-      browser.sleep(2000)
+      browser.sleep(2000);
 
-      internalForm.setCompanyName(dataInput.company_name)
-      ltlQuoteForm.setDataInObject(dataInput, internalForm)
-      ltlQuoteForm.createLtlQuote(browser, internalForm)
-      internalForm.clickGetQuote()
+      internalForm.setCompanyName(dataInput.company_name);
+      ltlQuoteForm.setDataInObject(dataInput, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
+      internalForm.clickGetQuote();
 
       // to be moved to the last part later.
 
@@ -71,184 +81,188 @@ describe('Fedex Economy Quote Creation by admin testcases in Internal Page', fun
 
       //end to be moved to the last part later
 
-      internalForm.clickGetQuote()
+      browser.sleep(2000);
 
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonFedex()
-        browser.sleep(2000)
+        internalForm.clickViewButtonFedex();
+        browser.sleep(2000);
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
-          dataObj.ar_discount,
-          dataObj.ar_fuel_charge
-        )
+          localStorageValues.getARMasterDataForFedexEco().discount,
+          localStorageValues.getARMasterDataForFedexEco().fuelsurcharge,
+          localStorageValues.getARMasterDataForFedexEco().amc
+        );
 
         expect(quoteDetailForm.getFedexEcoApGrossCharge()).toEqual(
-          '$' + dataInput.ap_gross_charge
-        )
+          "$" + dataInput.ap_gross_charge
+        );
         expect(quoteDetailForm.getFedexEcoArGrossCharge()).toEqual(
-          '$' + dataInput.ar_gross_charge
-        )
+          "$" + dataInput.ar_gross_charge
+        );
         expect(quoteDetailForm.getFedexEcoArDiscountedRate()).toEqual(
-          '$' + quoteObj.discountedRate
-        )
+          "$" + quoteObj.discountedRate
+        );
 
         expect(quoteDetailForm.getFedexEcoArNetCharge()).toEqual(
-          '$' + quoteObj.netCharge
-        )
-      })
-    })
-  })
+          "$" + quoteObj.netCharge
+        );
+      });
+    });
+  });
 
-  it('should calculate the net charge properly for Regional inputs', function () {
+  it("should calculate the net charge properly for Regional inputs", function () {
     browser.sleep(3000).then(function () {
-      console.log('inside the second scnerio..')
+      console.log("inside the second scnerio..");
       // browser.actions().sendKeys(protractor.Key.ESCAPE).perform();
-      $('body').sendKeys(protractor.Key.ESCAPE)
+      $("body").sendKeys(protractor.Key.ESCAPE);
 
-      var internalForm = new InternalForm()
-      var ltlQuoteForm = new LtlQuoteForm()
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.Regional_quote
-      browser.sleep(2000)
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
+      var dataObj = testDataInfo.data;
+      var dataInput = dataObj.Regional_quote;
+      browser.sleep(2000);
 
-      internalForm.setCompanyName(dataInput.company_name)
-      ltlQuoteForm.setDataInObject(dataInput, internalForm)
-      ltlQuoteForm.createLtlQuote(browser, internalForm)
-      internalForm.clickGetQuote()
-
+      internalForm.setCompanyName(dataInput.company_name);
+      ltlQuoteForm.setDataInObject(dataInput, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
+      internalForm.clickGetQuote();
+      browser.sleep(2000);
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonFedex()
-        browser.sleep(2000)
+        internalForm.clickViewButtonFedex();
+        browser.sleep(2000);
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
-          dataObj.ar_discount,
-          dataObj.ar_fuel_charge
-        )
+          localStorageValues.getARMasterDataForFedexEco().discount,
+          localStorageValues.getARMasterDataForFedexEco().fuelsurcharge,
+          localStorageValues.getARMasterDataForFedexEco().amc
+        );
 
         expect(quoteDetailForm.getFedexEcoApGrossCharge()).toEqual(
-          '$' + dataInput.ap_gross_charge
-        )
+          "$" + dataInput.ap_gross_charge
+        );
         expect(quoteDetailForm.getFedexEcoArGrossCharge()).toEqual(
-          '$' + dataInput.ar_gross_charge
-        )
+          "$" + dataInput.ar_gross_charge
+        );
         expect(quoteDetailForm.getFedexEcoArDiscountedRate()).toEqual(
-          '$' + quoteObj.discountedRate
-        )
+          "$" + quoteObj.discountedRate
+        );
 
         expect(quoteDetailForm.getFedexEcoArNetCharge()).toEqual(
-          '$' + quoteObj.netCharge
-        )
-      })
-    })
-  })
+          "$" + quoteObj.netCharge
+        );
+      });
+    });
+  });
 
-  it('should calculate the net charge properly for California charge inputs', function () {
+  it("should calculate the net charge properly for California charge inputs", function () {
     browser.sleep(3000).then(function () {
-      console.log('inside the third scnerio..')
+      console.log("inside the third scnerio..");
       // browser.actions().sendKeys(protractor.Key.ESCAPE).perform();
-      $('body').sendKeys(protractor.Key.ESCAPE)
+      $("body").sendKeys(protractor.Key.ESCAPE);
 
-      var internalForm = new InternalForm()
-      var ltlQuoteForm = new LtlQuoteForm()
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.ca_quote
-      browser.sleep(2000)
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
+      var dataObj = testDataInfo.data;
+      var dataInput = dataObj.ca_quote;
+      browser.sleep(2000);
 
-      internalForm.setCompanyName(dataInput.company_name)
-      ltlQuoteForm.setDataInObject(dataInput, internalForm)
-      ltlQuoteForm.createLtlQuote(browser, internalForm)
+      internalForm.setCompanyName(dataInput.company_name);
+      ltlQuoteForm.setDataInObject(dataInput, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
 
-      internalForm.clickGetQuote()
-
+      internalForm.clickGetQuote();
+      browser.sleep(2000);
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonFedex()
+        internalForm.clickViewButtonFedex();
 
-        browser.sleep(2000)
+        browser.sleep(2000);
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
-          dataObj.ar_discount,
-          dataObj.ar_fuel_charge
-        )
+          localStorageValues.getARMasterDataForFedexEco().discount,
+          localStorageValues.getARMasterDataForFedexEco().fuelsurcharge,
+          localStorageValues.getARMasterDataForFedexEco().amc
+        );
 
         expect(quoteDetailForm.getFedexEcoApGrossCharge()).toEqual(
-          '$' + dataInput.ap_gross_charge
-        )
+          "$" + dataInput.ap_gross_charge
+        );
         expect(quoteDetailForm.getFedexEcoArGrossCharge()).toEqual(
-          '$' + dataInput.ar_gross_charge
-        )
+          "$" + dataInput.ar_gross_charge
+        );
 
         expect(quoteDetailForm.getFedexEcoArDiscountedRate()).toEqual(
-          '$' + quoteObj.discountedRate
-        )
+          "$" + quoteObj.discountedRate
+        );
 
         expect(quoteDetailForm.getFedexEcoArNetCharge()).toEqual(
-          '$' + quoteObj.netCharge
-        )
+          "$" + quoteObj.netCharge
+        );
 
         expect(quoteDetailForm.getFedexEcoApCaCharge()).toEqual(
-          'CA Charge - $' + dataInput.ca_charge
-        )
+          "CA Charge - $" + dataInput.ca_charge
+        );
         expect(quoteDetailForm.getFedexEcoArCaCharge()).toEqual(
-          'CA Charge - $' + dataInput.ca_charge
-        )
-      })
-    })
-  })
+          "CA Charge - $" + dataInput.ca_charge
+        );
+      });
+    });
+  });
 
-  it('should calculate the net charge properly for High cost charge inputs', function () {
+  it("should calculate the net charge properly for High cost charge inputs", function () {
     browser.sleep(3000).then(function () {
-      console.log('inside the fourth scnerio..')
+      console.log("inside the fourth scnerio..");
       // browser.actions().sendKeys(protractor.Key.ESCAPE).perform();
 
-      $('body').sendKeys(protractor.Key.ESCAPE)
+      $("body").sendKeys(protractor.Key.ESCAPE);
 
-      var internalForm = new InternalForm()
-      var ltlQuoteForm = new LtlQuoteForm()
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.Highcost_quote
-      browser.sleep(2000)
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
+      var dataObj = testDataInfo.data;
+      var dataInput = dataObj.Highcost_quote;
+      browser.sleep(2000);
 
-      internalForm.setCompanyName(dataInput.company_name)
-      ltlQuoteForm.setDataInObject(dataInput, internalForm)
-      ltlQuoteForm.createLtlQuote(browser, internalForm)
+      internalForm.setCompanyName(dataInput.company_name);
+      ltlQuoteForm.setDataInObject(dataInput, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
 
-      browser.sleep(2000)
+      browser.sleep(2000);
 
-      internalForm.clickGetQuote()
-
+      internalForm.clickGetQuote();
+      browser.sleep(2000);
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonFedex()
+        internalForm.clickViewButtonFedex();
 
-        browser.sleep(1000)
+        browser.sleep(1000);
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
-          dataObj.ar_discount,
-          dataObj.ar_fuel_charge
-        )
+          localStorageValues.getARMasterDataForFedexEco().discount,
+          localStorageValues.getARMasterDataForFedexEco().fuelsurcharge,
+          localStorageValues.getARMasterDataForFedexEco().amc
+        );
 
         expect(quoteDetailForm.getFedexEcoApGrossCharge()).toEqual(
-          '$' + dataInput.ap_gross_charge
-        )
+          "$" + dataInput.ap_gross_charge
+        );
         expect(quoteDetailForm.getFedexEcoArGrossCharge()).toEqual(
-          '$' + dataInput.ar_gross_charge
-        )
+          "$" + dataInput.ar_gross_charge
+        );
 
         expect(quoteDetailForm.getFedexEcoArDiscountedRate()).toEqual(
-          '$' + quoteObj.discountedRate
-        )
+          "$" + quoteObj.discountedRate
+        );
 
         expect(quoteDetailForm.getFedexEcoArNetCharge()).toEqual(
-          '$' + quoteObj.netCharge
-        )
+          "$" + quoteObj.netCharge
+        );
 
         expect(quoteDetailForm.getFedexEcoArHighCost()).toEqual(
-          'High Cost - $' + dataInput.highcostar_charge
-        )
-      })
-    })
-  })
-})
+          "High Cost - $" + dataInput.highcostar_charge
+        );
+      });
+    });
+  });
+});

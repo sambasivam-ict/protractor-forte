@@ -15,12 +15,10 @@
       "ar_gross_charge": "3960.15",
       "ap_discount": 82,
       "ar_discount": 88,
-      "ap_fuel_charge": 26.3,
-      "ar_fuel_charge": 26.3,
       "ap_amc": 140,
       "ar_amc": 100,
       "high_cost": 77,
-      "ca_charge": 8.95
+      "ca_charge": 9.95
     },
     "reddaway_regional_direct_intrastate": {
       "company_name": "TEST COMPANY FOR E2E REDDAWAY",
@@ -32,8 +30,6 @@
       "ar_gross_charge": "457.36",
       "ap_discount": 88.5,
       "ar_discount": 77,
-      "ap_fuel_charge": 26.3,
-      "ar_fuel_charge": 26.3,
       "ap_amc": 85,
       "ar_amc": 120,
       "high_cost": 0,
@@ -50,12 +46,10 @@
       "ar_gross_charge": "3960.15",
       "ap_discount": 82,
       "ar_discount": 88,
-      "ap_fuel_charge": 26.3,
-      "ar_fuel_charge": 26.3,
       "ap_amc": 140,
       "ar_amc": 100,
       "high_cost": 77,
-      "ca_charge": 8.95
+      "ca_charge": 9.95
     },
     "reddaway_spl_rules_allwest_zip": {
       "company_name": "TEST COMPANY FOR E2E REDDAWAY",
@@ -67,8 +61,6 @@
       "ar_gross_charge": "1663.27",
       "ap_discount": 82,
       "ar_discount": 56,
-      "ap_fuel_charge": 26.3,
-      "ar_fuel_charge": 26.3,
       "ap_amc": 185,
       "ar_amc": 78,
       "high_cost": 0,
@@ -84,12 +76,10 @@
       "ar_gross_charge": "5158.48",
       "ap_discount": 82,
       "ar_discount": 88,
-      "ap_fuel_charge": 26.3,
-      "ar_fuel_charge": 26.3,
       "ap_amc": 185,
       "ar_amc": 100,
       "high_cost": 0,
-      "ca_charge": 8.95
+      "ca_charge": 9.95
     }
   }
 }

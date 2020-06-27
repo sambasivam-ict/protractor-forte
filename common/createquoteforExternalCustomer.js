@@ -34,13 +34,14 @@ var CreateLTLQuoteForExternalCustomer = function () {
       customerViewForm.enterdestinationzipcode();
   
       customerViewForm.enterClass();
-  //    browser.sleep(2000);
+      browser.sleep(3000);
       customerViewForm.enterWeight();
       browser.sleep(3000);
   
       customerViewForm.clickAddBtn();
   
-      browser.sleep(3000);
+      browser.sleep(10000);
+     // customerViewForm.enterClassForDummy();
       //customerViewForm.setCarrier();
       customerViewForm.selectCarrier();
       browser.sleep(2000);

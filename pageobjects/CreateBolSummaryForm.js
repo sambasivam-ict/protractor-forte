@@ -11,6 +11,13 @@ var CreateBolSummaryForm = function () {
     this.fedexEcoPrintBolElem = element(by.id('printbol2'));
     this.fedexEcoCreatePickupElem = element(by.id('pickup1'));
     this.fedexEcoFinishPickupLaterElem = element(by.id('finishpickup'));
+    this.reddawayOriginZipCodeElem = element(by.id('reddshipperpostalcode'));
+    this.reddawayDestinationCodeElem = element(by.id('reddconsigneepostalcode'));
+    this.reddawayCarrierSCACCodeElem = element(by.id('reddawayservicetype'));
+    this.reddawayRateElem = element(by.id('reddrate'));
+    // this.reddawayPrintBolElem = element(by.id('printbol2'));
+    // this.reddawayCreatePickupElem = element(by.id('pickup1'));
+    // this.reddawayFinishPickupLaterElem = element(by.id('finishpickup'));
 
     this.getYrcOriginZip = async function () {
         return await this.yrcOriginZipCodeElem.getText().trim();
@@ -39,6 +46,20 @@ var CreateBolSummaryForm = function () {
       };
       this.getFedexEcoRate = async function () {
         return await this.fedexEcoRateElem.getText();
+      }
+
+      this.getReddawayOriginZip = async function () {
+        return await this.reddawayOriginZipCodeElem.getText().trim();
+      };
+      this.getReddawayDestinationZip = async function () {
+        return await this.reddawayDestinationCodeElem.getText().trim();
+      };
+
+      this.getReddawayCarrier = async function () {
+        return await this.reddawayCarrierSCACCodeElem.getText().trim();
+      };
+      this.getReddawayRate = async function () {
+        return await this.reddawayRateElem.getText();
       }
 };
 

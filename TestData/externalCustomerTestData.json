@@ -15,7 +15,6 @@
         "Carrier": "YRC",
         "ar_gross_charge": "3834.58",
         "ar_discount": 45,
-        "ar_fuel_charge": 24,
         "ar_amc": 150,
         "ca_charge": 9
       },
@@ -26,7 +25,12 @@
         "Destinationzipcode": "90005",
         "Class": "100",
         "Weight": "500",
-        "Carrier": "YRC"
+        "Carrier": "YRC",
+        "ar_gross_charge": "811.42",
+        "ar_discount": 45,
+        "ar_amc": 150,
+        "high_cost": 82,
+        "ca_charge": 9.95
       
       },
       "fedex_Economy_Regional": {
@@ -36,9 +40,19 @@
         "Class": "175",
         "Weight": "360",
         "Carrier": "FEDEX ECONOMY",
-        "ar_gross_charge": "3370.69",
+        "ar_gross_charge": "2093.77",
         "ar_discount": 33,
-        "ar_fuel_charge": 24,
+        "ar_amc": 45
+      },
+      "reddaway_spl_rule": {
+        "company_name": "EXTERNAL CUSTOMER E2E TESTING",
+        "Originzipcode": "95001",
+        "Destinationzipcode": "85002",
+        "Class": "175",
+        "Weight": "360",
+        "Carrier": "REDDAWAY",
+        "ar_gross_charge": "2082.70",
+        "ar_discount": 75,
         "ar_amc": 45
       }
     }

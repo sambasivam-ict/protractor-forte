@@ -15,13 +15,14 @@ var CreateLTLQuote = function () {
     internalForm.enterdestinationzipcode();
 
     internalForm.enterClass();
-    browser.sleep(2000);
+    browser.sleep(3000);
     internalForm.enterWeight();
     browser.sleep(3000);
 
     internalForm.clickAddBtn();
-
-    browser.sleep(3000);
+    browser.sleep(6000);
+    //internalForm.enterClassForDummy();
+    browser.sleep(4000);
   };
 
   this.createLtlQuoteRules = function (browser, internalForm) {
@@ -31,13 +32,15 @@ var CreateLTLQuote = function () {
     internalForm.enterdestinationzipcode();
 
     internalForm.enterClass();
-    browser.sleep(2000);
+    browser.sleep(3000);
     internalForm.enterWeight();
     browser.sleep(3000);
 
     internalForm.clickAddBtn();
 
-    browser.sleep(3000);
+    browser.sleep(6000);
+   // internalForm.enterClassForDummy();
+    browser.sleep(4000);
   };
 };
 

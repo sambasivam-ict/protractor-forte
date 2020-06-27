@@ -177,6 +177,9 @@ var CustomerViewForm = function () {
     this.clickAddBtn = function () {
       this.AddBtnElem.click();
     };
+    this.enterClassForDummy = function () {
+      this.ClassElem.sendKeys(this.Class);
+    }
 
     // this.setCarrier = function (carrier) {
     //   console.log('carrier', carrier);

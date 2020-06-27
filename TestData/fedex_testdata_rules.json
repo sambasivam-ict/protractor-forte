@@ -16,10 +16,8 @@
       "Weight": "630",
       "ap_gross_charge": "2732.81",
       "ar_gross_charge": "3370.69",
-      "ap_discount": 81,
+      "ap_discount": 80.4,
       "ar_discount": 33,
-      "ap_fuel_charge": 24.5,
-      "ar_fuel_charge": 24,
       "ap_amc": 75.66,
       "ar_amc": 45
     },
@@ -31,10 +29,8 @@
       "Weight": "1460",
       "ap_gross_charge": "2176.42",
       "ar_gross_charge": "2719.24",
-      "ap_discount": 81,
+      "ap_discount": 80.4,
       "ar_discount": 56,
-      "ap_fuel_charge": 24.5,
-      "ar_fuel_charge": 24,
       "ap_amc": 75.66,
       "ar_amc": 56
     },
@@ -50,9 +46,7 @@
         "ar_gross_charge": "1530.98",
         "ap_discount": 79.5,
         "ar_discount": 67,
-        "ap_fuel_charge": 23.9,
-        "ar_fuel_charge": 23.9,
-        "ap_amc": 81.04,
+        "ap_amc": 80.4,
         "ar_amc": 69,
         "ca_charge": 7
       }

@@ -1,64 +1,61 @@
-var LogisticsLoginPage = require('./pageobjects/LoginForm')
+var LogisticsLoginPage = require("./pageobjects/LoginForm");
 
-var InternalForm = require('./pageobjects/InternalViewForm')
+var InternalForm = require("./pageobjects/InternalViewForm");
 
-var LocalStorageValues = require('./pageobjects/LocalStorateValues')
+var LocalStorageValues = require("./pageobjects/LocalStorateValues");
 
-var testDataInfo = require('./TestData/ReddawayTestData.json')
+var testDataInfo = require("./TestData/ReddawayTestData.json");
 
-var LtlQuoteForm = require('./common/createltlquote')
+var LtlQuoteForm = require("./common/createltlquote");
 
-var QuoteDetailForm = require('./pageobjects/QuoteDetailForm')
+var QuoteDetailForm = require("./pageobjects/QuoteDetailForm");
 
-var ExternalDashboardForm = require('./pageobjects/ExternalDashboardForm')
+var ExternalDashboardForm = require("./pageobjects/ExternalDashboardForm");
 
-var environment = require('./environment/env')
+var environment = require("./environment/env");
 
-var masterDataAPDiscount = []
-var masterDataARDiscount = []
+var masterDataAPDiscount = [];
+var masterDataARDiscount = [];
 
-var localStorageValues = new LocalStorageValues()
-var quoteDetailForm = new QuoteDetailForm()
+var localStorageValues = new LocalStorageValues();
+var quoteDetailForm = new QuoteDetailForm();
 
-describe('Reddaway Quote Creation by admin testcases in the internal page', function () {
+describe("Reddaway Quote Creation by admin testcases in the internal page", function () {
   beforeAll(function () {
-    console.log('test data:', testDataInfo.data.Nondirect_quote.Class)
+    console.log("test data:", testDataInfo.data.Nondirect_quote.Class);
 
-    browser.ignoreSynchronization = true
+    browser.ignoreSynchronization = true;
     if (environment.isStage == false) {
-      browser.get(environment.dev_url)
+      browser.get(environment.dev_url);
     } else {
-      browser.get(environment.stage_url)
+      browser.get(environment.stage_url);
     }
 
-    var loginPageObj = new LogisticsLoginPage()
+    var loginPageObj = new LogisticsLoginPage();
 
-    var credentials = testDataInfo.data.login_credentials_admin
-    loginPageObj.setUserName(credentials.user_name)
-    loginPageObj.setPassWord(credentials.password)
+    var credentials = testDataInfo.data.login_credentials_admin;
+    loginPageObj.setUserName(credentials.user_name);
+    loginPageObj.setPassWord(credentials.password);
 
-    loginPageObj.enterUserName()
-    loginPageObj.enterPassword()
+    loginPageObj.enterUserName();
+    loginPageObj.enterPassword();
 
-    loginPageObj.clickSubmitButton()
+    loginPageObj.clickSubmitButton();
 
-    browser.driver
-      .manage()
-      .window()
-      .maximize()
-    browser.sleep(3000)
+    browser.driver.manage().window().maximize();
+    browser.sleep(3000);
     localStorageValues
       .getApMasterDataLocalStorage()
       .then(function (returnData) {
-        masterDataAPDiscount = returnData
-      })
+        masterDataAPDiscount = returnData;
+      });
 
     localStorageValues
       .getArMasterDataLocalStorage()
       .then(function (returnData) {
-        masterDataARDiscount = returnData
-      })
-  })
+        masterDataARDiscount = returnData;
+      });
+  });
 
   afterAll(function () {
     browser.sleep(2000);
@@ -67,56 +64,58 @@ describe('Reddaway Quote Creation by admin testcases in the internal page', func
     browser.sleep(2000);
     internalForm.clickOnLogoutUser();
     browser.sleep(2000);
-  })
+  });
 
-  it('Reddaway should calculate the net charge properly for Non Direct Zipcodes', function () {
+  it("Reddaway should calculate the net charge properly for Non Direct Zipcodes", function () {
     browser.sleep(3000).then(function () {
-      var internalForm = new InternalForm()
-      var ltlQuoteForm = new LtlQuoteForm()
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
 
-      browser.sleep(2000)
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.Nondirect_quote
-      console.log('dataInput', dataInput)
-      internalForm.setCompanyName(dataInput.company_name)
-      ltlQuoteForm.setDataInObject(dataInput, internalForm)
-      ltlQuoteForm.createLtlQuote(browser, internalForm)
-      expect(true).toEqual(true)
+      browser.sleep(2000);
+      var dataObj = testDataInfo.data;
+      var dataInput = dataObj.Nondirect_quote;
+      console.log("dataInput", dataInput);
+      console.log(
+        "localStorageValues.getArMasterDataByCompany()",
+        localStorageValues.getArMasterDataByCompany()
+      );
+      internalForm.setCompanyName(dataInput.company_name);
+      ltlQuoteForm.setDataInObject(dataInput, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
+      expect(true).toEqual(true);
 
-      browser.sleep(3000)
+      browser.sleep(3000);
 
-      internalForm.clickGetQuote()
-
+      internalForm.clickGetQuote();
+      browser.sleep(2000);
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonReddaway()
-        browser.sleep(2000)
+        browser.actions().mouseMove(internalForm.viewBtnReddaway).perform();
+        internalForm.clickViewButtonReddaway();
+        browser.sleep(2000);
 
-        console.log(
-          'localStorageValues.getArMasterDataByCompany().REDDAWAY',
-          localStorageValues.getArMasterDataByCompany().REDDAWAY
-        )
+        console.log("localStorageValues.getArMasterDataByCompany().REDDAWAY");
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
           dataObj.ar_nondirect_discount,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.amc
-        )
+        );
 
         expect(quoteDetailForm.getReddawayApGrossCharge()).toEqual(
-          '$' + dataInput.ap_gross_charge
-        )
+          "$" + dataInput.ap_gross_charge
+        );
         expect(quoteDetailForm.getReddawayArGrossCharge()).toEqual(
-          '$' + dataInput.ar_gross_charge
-        )
+          "$" + dataInput.ar_gross_charge
+        );
 
         expect(quoteDetailForm.getReddawayArDiscountedRate()).toEqual(
-          '$' + quoteObj.discountedRate
-        )
+          "$" + quoteObj.discountedRate
+        );
 
         expect(quoteDetailForm.getReddawayArNetCharge()).toEqual(
-          '$' + quoteObj.netCharge
-        )
+          "$" + quoteObj.netCharge
+        );
 
         //the following 3 are dummy expects to make sure reduce method works.
 
@@ -124,389 +123,411 @@ describe('Reddaway Quote Creation by admin testcases in the internal page', func
 
         expect(
           localStorageValues.getApMasterDataByCompany().REDDAWAY.companyName
-        ).toEqual('REDDAWAY')
+        ).toEqual("REDDAWAY");
 
         expect(
           localStorageValues.getArMasterDataByCompany().REDDAWAY.type
-        ).toEqual('AR')
+        ).toEqual("AR");
 
         expect(
           localStorageValues.getAPMasterDataForReddaway().fuelsurcharge
-        ).toEqual('26.3')
-      })
-      browser.sleep(3000)
-    })
-  })
+        ).toEqual("23.3");
+      });
+      browser.sleep(3000);
+    });
+  });
 
-  it('Reddaway should calculate the net charge properly for Direct Zipcodes', function () {
+  it("Reddaway should calculate the net charge properly for Direct Zipcodes", function () {
     browser.sleep(3000).then(function () {
-      console.log('inside the second scnerio..')
-      $('body').sendKeys(protractor.Key.ESCAPE)
-      var internalForm = new InternalForm()
-      var ltlQuoteForm = new LtlQuoteForm()
+      console.log("inside the second scnerio..");
+      $("body").sendKeys(protractor.Key.ESCAPE);
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
 
-      browser.sleep(2000)
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.Direct_quote
-      console.log('dataInput', dataInput)
-      internalForm.setCompanyName(dataInput.company_name)
-      ltlQuoteForm.setDataInObject(dataInput, internalForm)
-      ltlQuoteForm.createLtlQuote(browser, internalForm)
-
-      internalForm.clickGetQuote()
-      browser.sleep(3000)
+      browser.sleep(2000);
+      var dataObj = testDataInfo.data;
+      var dataInput = dataObj.Direct_quote;
+      console.log("dataInput", dataInput);
+      internalForm.setCompanyName(dataInput.company_name);
+      ltlQuoteForm.setDataInObject(dataInput, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
+      browser.sleep(2000);
+      internalForm.clickGetQuote();
+      browser.sleep(3000);
 
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonReddaway()
-        browser.sleep(2000)
+        browser.actions().mouseMove(internalForm.viewBtnReddaway).perform();
+        internalForm.clickViewButtonReddaway();
+        browser.sleep(2000);
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.discount,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.amc
-        )
+        );
 
-        browser.sleep(1000)
+        browser.sleep(1000);
 
         expect(quoteDetailForm.getReddawayApGrossCharge()).toEqual(
-          '$' + dataInput.ap_gross_charge
-        )
+          "$" + dataInput.ap_gross_charge
+        );
         expect(quoteDetailForm.getReddawayArGrossCharge()).toEqual(
-          '$' + dataInput.ar_gross_charge
-        )
+          "$" + dataInput.ar_gross_charge
+        );
 
         expect(quoteDetailForm.getReddawayApCaCharge()).toEqual(
-          'CA Charge - $' + dataInput.ca_charge
-        )
+          "CA Charge - $" + dataInput.ca_charge
+        );
 
         expect(quoteDetailForm.getReddawayArCaCharge()).toEqual(
-          'CA Charge - $' + dataInput.ca_charge
-        )
+          "CA Charge - $" + dataInput.ca_charge
+        );
 
         expect(quoteDetailForm.getReddawayArDiscountedRate()).toEqual(
-          '$' + quoteObj.discountedRate
-        )
+          "$" + quoteObj.discountedRate
+        );
 
         expect(quoteDetailForm.getReddawayArNetCharge()).toEqual(
-          '$' + quoteObj.netCharge
-        )
-      })
+          "$" + quoteObj.netCharge
+        );
+      });
 
-      browser.sleep(3000)
-    })
-  })
+      browser.sleep(3000);
+    });
+  });
 
-  it('Reddaway should calculate the net charge properly for California charge inputs', function () {
+  it("Reddaway should calculate the net charge properly for California charge inputs", function () {
     browser.sleep(3000).then(function () {
-      console.log('inside the third scnerio..')
-      $('body').sendKeys(protractor.Key.ESCAPE)
+      console.log("inside the third scnerio..");
+      $("body").sendKeys(protractor.Key.ESCAPE);
 
-      var internalForm = new InternalForm()
-      var ltlQuoteForm = new LtlQuoteForm()
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
 
-      browser.sleep(2000)
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.ca_quote
-      console.log('dataInput', dataInput)
-      internalForm.setCompanyName(dataInput.company_name)
-      ltlQuoteForm.setDataInObject(dataInput, internalForm)
-      ltlQuoteForm.createLtlQuote(browser, internalForm)
-      expect(true).toEqual(true)
+      browser.sleep(2000);
+      var dataObj = testDataInfo.data;
+      var dataInput = dataObj.ca_quote;
+      console.log("dataInput", dataInput);
+      internalForm.setCompanyName(dataInput.company_name);
+      ltlQuoteForm.setDataInObject(dataInput, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
+      expect(true).toEqual(true);
 
-      browser.sleep(2000)
+      browser.sleep(2000);
 
-      internalForm.clickGetQuote()
-
+      internalForm.clickGetQuote();
+      browser.sleep(4000);
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonReddaway()
+        browser.actions().mouseMove(internalForm.viewBtnReddaway).perform();
+        internalForm.clickViewButtonReddaway();
 
-        browser.sleep(2000)
+        browser.sleep(2000);
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.discount,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.amc
-        )
+        );
 
-        expect(quoteDetailForm.getReddawayApCaCharge()).toEqual(
-          '$' + dataInput.ap_gross_charge
-        )
+        expect(quoteDetailForm.getReddawayApGrossCharge()).toEqual(
+          "$" + dataInput.ap_gross_charge
+        );
         expect(quoteDetailForm.getReddawayArGrossCharge()).toEqual(
-          '$' + dataInput.ar_gross_charge
-        )
+          "$" + dataInput.ar_gross_charge
+        );
 
         expect(quoteDetailForm.getReddawayApCaCharge()).toEqual(
-          'CA Charge - $' +
-            localStorageValues.getApMasterDataByCompany().REDDAWAY.caCharge
-        )
+          "CA Charge - $" + dataInput.ca_charge
+        );
 
         expect(quoteDetailForm.getReddawayArCaCharge()).toEqual(
-          'CA Charge - $' +
-            localStorageValues.getArMasterDataByCompany().REDDAWAY.caCharge
-        )
+          "CA Charge - $" + dataInput.ca_charge
+        );
 
         expect(quoteDetailForm.getReddawayArDiscountedRate()).toEqual(
-          '$' + quoteObj.discountedRate
-        )
+          "$" + quoteObj.discountedRate
+        );
 
         expect(quoteDetailForm.getReddawayArNetCharge()).toEqual(
-          '$' + quoteObj.netCharge
-        )
-      })
-    })
-  })
+          "$" + quoteObj.netCharge
+        );
+      });
+    });
+  });
 
-  it('Reddaway should include the High Cost charge for the High Cost zip codes for CWT', function () {
+  it("Reddaway should include the High Cost charge for the High Cost zip codes for CWT", function () {
     browser.sleep(3000).then(function () {
-      console.log('inside the third scnerio..')
+      console.log("inside the third scnerio..");
 
-      $('body').sendKeys(protractor.Key.ESCAPE)
-      var internalForm = new InternalForm()
-      var ltlQuoteForm = new LtlQuoteForm()
+      $("body").sendKeys(protractor.Key.ESCAPE);
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
 
-      browser.sleep(2000)
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.Highcost_quote
-      console.log('dataInput', dataInput)
-      internalForm.setCompanyName(dataInput.company_name)
-      ltlQuoteForm.setDataInObject(dataInput, internalForm)
-      ltlQuoteForm.createLtlQuote(browser, internalForm)
-      expect(true).toEqual(true)
+      browser.sleep(2000);
+      var dataObj = testDataInfo.data;
+      var dataInput = dataObj.Highcost_quote;
+      console.log("dataInput", dataInput);
+      internalForm.setCompanyName(dataInput.company_name);
+      ltlQuoteForm.setDataInObject(dataInput, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
+      expect(true).toEqual(true);
 
-      browser.sleep(2000)
-      internalForm.clickGetQuote()
-
+      browser.sleep(2000);
+      internalForm.clickGetQuote();
+      browser.sleep(2000);
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonReddaway()
+        browser.sleep(2000);
+        browser.actions().mouseMove(internalForm.viewBtnReddaway).perform();
+        internalForm.clickViewButtonReddaway();
+        browser.sleep(2000);
 
-        browser.sleep(2000)
-
-        var totalHighCostCharge = internalForm.calulatHighCostChargeFromCWT()
+        var totalHighCostCharge = internalForm.calulatHighCostChargeFromCWT(
+          dataInput.Weight,
+          dataInput.dollor_cwt_highcost
+        );
+        console.log("totalHighCostCharge", totalHighCostCharge);
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
           dataObj.ar_discount,
-          dataObj.ar_fuel_charge,
+          localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.amc
-        )
+        );
 
-        expect(quoteDetailForm.getReddawayApCaCharge()).toEqual(
-          '$' + dataInput.ap_gross_charge
-        )
+        expect(quoteDetailForm.getReddawayApGrossCharge()).toEqual(
+          "$" + dataInput.ap_gross_charge
+        );
         expect(quoteDetailForm.getReddawayArGrossCharge()).toEqual(
-          '$' + dataInput.ar_gross_charge
-        )
+          "$" + dataInput.ar_gross_charge
+        );
 
         expect(quoteDetailForm.getReddawayApCaCharge()).toEqual(
-          'CA Charge - $' +
-            localStorageValues.getApMasterDataByCompany().REDDAWAY.caCharge
-        )
+          "CA Charge - $" + dataInput.ca_charge
+        );
 
         expect(quoteDetailForm.getReddawayArCaCharge()).toEqual(
-          'CA Charge - $' +
-            localStorageValues.getArMasterDataByCompany().REDDAWAY.caCharge
-        )
+          "CA Charge - $" + dataInput.ca_charge
+        );
 
         expect(quoteDetailForm.getReddawayArDiscountedRate()).toEqual(
-          '$' + quoteObj.discountedRate
-        )
+          "$" + Number(quoteObj.discountedRate)
+        );
 
         expect(quoteDetailForm.getReddawayArNetCharge()).toEqual(
-          '$' + quoteObj.netCharge
-        )
+          "$" + quoteObj.netCharge
+        );
 
-        // expect(quoteDetailForm.getReddawayApHighCost()).toEqual(
-        //   'High Cost - $' + totalHighCostCharge
-        // )
+        expect(quoteDetailForm.getReddawayApHighCost()).toEqual(
+          "High Cost - $" + totalHighCostCharge
+        );
 
-        // expect(quoteDetailForm.getReddawayArHighCost()).toEqual(
-        //   'High Cost - $' + totalHighCostCharge
-        // )
-      })
-    })
-  })
+        expect(quoteDetailForm.getReddawayArHighCost()).toEqual(
+          "High Cost - $" + totalHighCostCharge
+        );
+      });
+    });
+  });
 
-  it('Reddaway should include the High Cost charge - High Cost Lt Min Charge and Min Charge', function () {
+  it("Reddaway should include the High Cost charge  High Cost Lt Min Charge and Min Charge", function () {
     browser.sleep(3000).then(function () {
-      console.log('inside the third scnerio..')
-      $('body').sendKeys(protractor.Key.ESCAPE)
+      console.log("inside the third scnerio..");
+      $("body").sendKeys(protractor.Key.ESCAPE);
 
-      var internalForm = new InternalForm()
-      var ltlQuoteForm = new LtlQuoteForm()
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
 
-      browser.sleep(2000)
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.Highcostminvalueapplied_quote
-      console.log('dataInput', dataInput)
-      internalForm.setCompanyName(dataInput.company_name)
-      ltlQuoteForm.setDataInObject(dataInput, internalForm)
-      ltlQuoteForm.createLtlQuote(browser, internalForm)
-      expect(true).toEqual(true)
+      browser.sleep(2000);
+      var dataObj = testDataInfo.data;
+      var dataInput = dataObj.Highcostminvalueapplied_quote;
+      console.log("dataInput", dataInput);
+      internalForm.setCompanyName(dataInput.company_name);
+      ltlQuoteForm.setDataInObject(dataInput, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
+      expect(true).toEqual(true);
 
-      browser.sleep(2000)
+      browser.sleep(2000);
 
-      internalForm.clickGetQuote()
+      internalForm.clickGetQuote();
+      browser.sleep(2000);
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonReddaway()
+        browser.actions().mouseMove(internalForm.viewBtnReddaway).perform();
+        internalForm.clickViewButtonReddaway();
 
-        browser.sleep(2000)
+        browser.sleep(2000);
 
-        var totalHighCostCharge = internalForm.calulatHighCostChargeFromCWT()
+        //     var totalHighCostCharge = internalForm.calulatHighCostChargeFromCWT(dataInput.Weight, dataInput.dollor_cwt_highcost)
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
-          dataObj.ar_fuel_charge,
           dataObj.ar_discount,
+          localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.amc
-        )
+        );
 
         expect(quoteDetailForm.getReddawayApGrossCharge()).toEqual(
-          '$' + dataInput.ap_gross_charge
-        )
+          "$" + dataInput.ap_gross_charge
+        );
         expect(quoteDetailForm.getReddawayArGrossCharge()).toEqual(
-          '$' + dataInput.ar_gross_charge
-        )
+          "$" + dataInput.ar_gross_charge
+        );
 
         expect(quoteDetailForm.getReddawayArDiscountedRate()).toEqual(
-          '$' + quoteObj.discountedRate
-        )
+          "$" + quoteObj.discountedRate
+        );
 
         expect(quoteDetailForm.getReddawayArNetCharge()).toEqual(
-          '$' + quoteObj.netCharge
-        )
-
+          "$" + quoteObj.netCharge
+        );
+        console.log(
+          "quoteDetailForm.getReddawayApHighCost()",
+          quoteDetailForm.getReddawayApHighCost(),
+          quoteDetailForm.getReddawayArHighCost()
+        );
         // expect(quoteDetailForm.getReddawayApHighCost()).toEqual(
-        //   'High Cost - $' + totalHighCostCharge
+        //   'High Cost - $' + dataInput.highcost_charge
         // )
 
         // expect(quoteDetailForm.getReddawayArHighCost()).toEqual(
-        //   'High Cost - $' + totalHighCostCharge
+        //   'High Cost - $' + dataInput.highcost_charge
         // )
-      })
-    })
-    browser.sleep(2000)
-  })
+      });
+    });
+    browser.sleep(2000);
+  });
 
-  it('Reddaway should include the High Cost charge - High Cost GT Max Charge', function () {
+  it("Reddaway should include the High Cost charge High Cost GT Max Charge", function () {
     browser.sleep(3000).then(function () {
-      console.log('inside the third scnerio..')
-      $('body').sendKeys(protractor.Key.ESCAPE)
+      console.log("inside the third scnerio..");
+      $("body").sendKeys(protractor.Key.ESCAPE);
 
-      var internalForm = new InternalForm()
-      var ltlQuoteForm = new LtlQuoteForm()
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
 
-      browser.sleep(2000)
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.Highcostmaxvalueapplied_quote
-      console.log('dataInput', dataInput)
-      internalForm.setCompanyName(dataInput.company_name)
-      ltlQuoteForm.setDataInObject(dataInput, internalForm)
-      ltlQuoteForm.createLtlQuote(browser, internalForm)
-      expect(true).toEqual(true)
+      browser.sleep(2000);
+      var dataObj = testDataInfo.data;
+      var dataInput = dataObj.Highcostmaxvalueapplied_quote;
+      console.log("dataInput", dataInput);
+      internalForm.setCompanyName(dataInput.company_name);
+      ltlQuoteForm.setDataInObject(dataInput, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
+      expect(true).toEqual(true);
 
-      browser.sleep(2000)
+      browser.sleep(2000);
 
-      internalForm.clickGetQuote()
+      internalForm.clickGetQuote();
+      browser.sleep(2000);
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonReddaway()
+        browser.sleep(2000);
+        browser.actions().mouseMove(internalForm.viewBtnReddaway).perform();
+        internalForm.clickViewButtonReddaway();
 
-        browser.sleep(2000)
+        browser.sleep(2000);
 
-        var totalHighCostCharge = internalForm.calulatHighCostChargeFromCWT()
+        var totalHighCostCharge = internalForm.calulatHighCostChargeFromCWT(
+          dataInput.Weight,
+          dataInput.dollor_cwt_highcost
+        );
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
-          dataObj.ar_fuel_charge,
+
           dataObj.ar_discount,
+          localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.amc
-        )
+        );
 
         expect(quoteDetailForm.getReddawayApGrossCharge()).toEqual(
-          '$' + dataInput.ap_gross_charge
-        )
+          "$" + dataInput.ap_gross_charge
+        );
         expect(quoteDetailForm.getReddawayArGrossCharge()).toEqual(
-          '$' + dataInput.ar_gross_charge
-        )
+          "$" + dataInput.ar_gross_charge
+        );
 
         expect(quoteDetailForm.getReddawayArDiscountedRate()).toEqual(
-          '$' + quoteObj.discountedRate
-        )
+          "$" + quoteObj.discountedRate
+        );
 
         expect(quoteDetailForm.getReddawayArNetCharge()).toEqual(
-          '$' + quoteObj.netCharge
-        )
+          "$" + quoteObj.netCharge
+        );
 
-        // expect(quoteDetailForm.getReddawayApHighCost()).toEqual(
-        //   'High Cost - $' + totalHighCostCharge
-        // )
+        expect(quoteDetailForm.getReddawayApHighCost()).toEqual(
+          "High Cost - $" + dataInput.highcost_charge
+        );
 
-        // expect(quoteDetailForm.getReddawayArHighCost()).toEqual(
-        //   'High Cost - $' + totalHighCostCharge
-        // )
-      })
-    })
-    browser.sleep(2000)
-  })
+        expect(quoteDetailForm.getReddawayArHighCost()).toEqual(
+          "High Cost - $" + dataInput.highcost_charge
+        );
+      });
+    });
+    browser.sleep(2000);
+  });
 
-  it('Reddaway should include the additional Bay area charge SF Metro Charge to Zips currently not covered should be applied', function () {
+  it("Reddaway should include the additional Bay area charge SF Metro Charge to Zips currently not covered should be applied", function () {
     browser.sleep(3000).then(function () {
-      console.log('inside the third scnerio..')
-      $('body').sendKeys(protractor.Key.ESCAPE)
+      console.log("inside the third scnerio..");
+      $("body").sendKeys(protractor.Key.ESCAPE);
 
-      var internalForm = new InternalForm()
-      var ltlQuoteForm = new LtlQuoteForm()
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
 
-      browser.sleep(2000)
-      var dataObj = testDataInfo.data
-      var dataInput = dataObj.Highcostsanfransicomincostvalueapplied_quote
-      console.log('dataInput', dataInput)
-      internalForm.setCompanyName(dataInput.company_name)
-      ltlQuoteForm.setDataInObject(dataInput, internalForm)
-      ltlQuoteForm.createLtlQuote(browser, internalForm)
-      expect(true).toEqual(true)
+      browser.sleep(2000);
+      var dataObj = testDataInfo.data;
+      var dataInput = dataObj.Highcostsanfransicomincostvalueapplied_quote;
+      console.log("dataInput", dataInput);
+      internalForm.setCompanyName(dataInput.company_name);
+      ltlQuoteForm.setDataInObject(dataInput, internalForm);
+      ltlQuoteForm.createLtlQuote(browser, internalForm);
+      expect(true).toEqual(true);
 
-      browser.sleep(2000)
+      browser.sleep(2000);
 
-      internalForm.clickGetQuote()
+      internalForm.clickGetQuote();
+      browser.sleep(2000);
       browser.sleep(10000).then(function () {
-        internalForm.clickViewButtonReddaway()
+        browser.sleep(2000);
+        browser.actions().mouseMove(internalForm.viewBtnReddaway).perform();
+        internalForm.clickViewButtonReddaway();
 
-        browser.sleep(2000)
+        browser.sleep(2000);
 
-        var totalHighCostCharge = internalForm.calulatHighCostChargeFromCWT()
+        var totalHighCostCharge = internalForm.calulatHighCostChargeFromCWT(
+          dataInput.Weight,
+          dataInput.dollor_cwt_highcost
+        );
 
         const quoteObj = internalForm.calculateNetCharge(
           dataInput.ar_gross_charge,
-          dataObj.ar_fuel_charge,
           dataObj.ar_discount,
+          localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge,
           localStorageValues.getArMasterDataByCompany().REDDAWAY.amc
-        )
+        );
 
         expect(quoteDetailForm.getReddawayApGrossCharge()).toEqual(
-          '$' + dataInput.ap_gross_charge
-        )
+          "$" + dataInput.ap_gross_charge
+        );
         expect(quoteDetailForm.getReddawayArGrossCharge()).toEqual(
-          '$' + dataInput.ar_gross_charge
-        )
+          "$" + dataInput.ar_gross_charge
+        );
 
         expect(quoteDetailForm.getReddawayArDiscountedRate()).toEqual(
-          '$' + quoteObj.discountedRate
-        )
+          "$" + quoteObj.discountedRate
+        );
 
         expect(quoteDetailForm.getReddawayArNetCharge()).toEqual(
-          '$' + quoteObj.netCharge
-        )
+          "$" + quoteObj.netCharge
+        );
 
-        // expect(quoteDetailForm.getReddawayApHighCost()).toEqual(
-        //   'High Cost - $' + totalHighCostCharge
-        // )
+        expect(quoteDetailForm.getReddawayApHighCost()).toEqual(
+          "High Cost - $" + dataInput.highcost_charge
+        );
 
-        // expect(quoteDetailForm.getReddawayArHighCost()).toEqual(
-        //   'High Cost - $' + totalHighCostCharge
-        // )
-      })
-    })
-  })
-})
+        expect(quoteDetailForm.getReddawayArHighCost()).toEqual(
+          "High Cost - $" + dataInput.highcost_charge
+        );
+      });
+    });
+  });
+});

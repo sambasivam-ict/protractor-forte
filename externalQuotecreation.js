@@ -88,7 +88,7 @@ describe('External Customer logs in for creating external quotes', function () {
       var customerViewForm = new CustomerViewForm()
       var ltlQuoteFormForExternalCustomer = new LtlQuoteFormForExternalCustomer()
       $('body').sendKeys(protractor.Key.ESCAPE)
-      var dataInput = testDataInfo.data.yrc_interstate
+      var dataInput = testDataInfo.data.yrc_intrastate
 
       console.log('value for dataObj dataInput', dataInput)
 
@@ -110,7 +110,7 @@ describe('External Customer logs in for creating external quotes', function () {
         const quoteObj = customerViewForm.calculateNetCharge(
           dataInput.ar_gross_charge,
           dataInput.ar_discount,
-          dataInput.ar_fuel_charge,
+          localStorageValues.getArMasterDataByCompany().YRC.fuelsurcharge,
           dataInput.ar_amc
         )
 
@@ -147,7 +147,7 @@ describe('External Customer logs in for creating external quotes', function () {
         const quoteObj = customerViewForm.calculateNetCharge(
           dataInput.ar_gross_charge,
           dataInput.ar_discount,
-          dataInput.ar_fuel_charge,
+          localStorageValues.getArMasterDataByCompany().FEDEXECONOMY.fuelsurcharge,
           dataInput.ar_amc
         )
 
@@ -155,8 +155,43 @@ describe('External Customer logs in for creating external quotes', function () {
       })
     })
   })
+  it('should create quote for reddaway carrier', function () {
+    console.log('Reddaway quote creation')
+    browser.sleep(5000).then(function () {
+      var customerViewForm = new CustomerViewForm()
+      var ltlQuoteFormForExternalCustomer = new LtlQuoteFormForExternalCustomer()
+      $('body').sendKeys(protractor.Key.ESCAPE)
+      var dataInput = testDataInfo.data.reddaway_spl_rule;
 
-  it('should create quote for yrc intrastate carrier will result a error message', function () {
+      console.log('value for dataObj dataInput', dataInput)
+
+      customerViewForm.setCompanyName(dataInput.company_name)
+      customerViewForm.setCarrier(dataInput.Carrier)
+      ltlQuoteFormForExternalCustomer.setDataInObject(
+        dataInput,
+        customerViewForm
+      )
+      ltlQuoteFormForExternalCustomer.createLtlQuoteCreationForExternalCustomer(
+        browser,
+        customerViewForm
+      )
+      browser.sleep(2000)
+      expect(true).toEqual(true)
+      customerViewForm.clickGetQuote()
+      browser.sleep(10000).then(function () {
+        browser.sleep(2000)
+        const quoteObj = customerViewForm.calculateNetCharge(
+          dataInput.ar_gross_charge,
+          dataInput.ar_discount,
+          localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge,
+          dataInput.ar_amc
+        )
+
+        browser.sleep(5000)
+      })
+    })
+  })
+  it('should create quote for yrc interstate carrier will result a error message', function () {
     console.log('yrc intrastate quote creation')
     browser.sleep(5000).then(function () {
       var customerViewForm = new CustomerViewForm()

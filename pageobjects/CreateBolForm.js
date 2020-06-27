@@ -23,6 +23,8 @@ var CreateBolForm = function () {
 
   this.ShipmentItemizedElem = element(by.id('shipmentTypesItemized2'));
 
+  this.ClickOnMultiClassElem = element(by.id('shipmentTypesMultiClass2'));
+
   this.ThirPartyElem = $('input[formControlName=thirdParty]');
 
   this.HazmatElem = $('input[formControlName=hazmat]');
@@ -59,7 +61,7 @@ var CreateBolForm = function () {
 
   this.CreateBolElem = element(by.id('create'));
 
-  this.ChooseServiceTypeElem = element(by.id('serviceType'));
+  this.ChooseServiceTypeElem = $('input[formControlName=serviceType]');
 
   this.CreatebolfocusElem = element(by.id('createbolfocus'));
 
@@ -87,6 +89,18 @@ var CreateBolForm = function () {
   this.WeightForPiecesElem = element(by.id('weightForPieces'));
 
   this.DescForPiecesElem = element(by.id('descForPieces1'));
+
+
+  /**Multi Classed Elements */
+
+  
+  this.HandlingUnitQuantityForMultiClassElem = element(by.id('handlingUnitQuantityForMultiClass'));
+  this.PackageQuantityForMultiClassElem = element(by.id('packageQuantityForMultiClass'));
+  this.WeightForMultiClassElem = element(by.id('weightForMultiClass'));
+
+  this.ClassificationForPiecesElem = element(by.id('classificationForPieces'));
+
+  this.ClickOnAddBtnForMultiClassElem = element(by.id('addBtn'));
 
   this.setShipperStreet1 = function (shipperStreet) {
     this.shipperStreet = shipperStreet
@@ -141,17 +155,18 @@ var CreateBolForm = function () {
     this.SplInstructionsElem.sendKeys(this.splInstructions)
   }
 
-  this.setShipmentType = function (shipmentType) {
-    this.shipmentType = shipmentType
-  }
 
   this.enterShipmentType = function () {
-    this.ShipmentTypeElem.sendKeys(this.shipmentType);
+    this.ShipmentTypeElem.click();
   }
 
-  this.enterShipmentTypeItemied = function () {
+  this.enterShipmentTypeItemized = function () {
     console.log('this.enterShipmentTypeItemized', this.shipmentType);
     this.ShipmentItemizedElem.click();
+  }
+
+  this.enterShipmentTypeMultiClass = function () {
+    this.ClickOnMultiClassElem.click();
   }
 
   this.setThirdParty = function (thirdParty) {
@@ -270,29 +285,14 @@ var CreateBolForm = function () {
 
 
   this.setCarrier = function (carrier) {
+    console.log('carrier name', carrier);
     this.carrierName = carrier;
   };
 
   this.selectCarrier = function () {
+    console.log('carrier name 123', this.carrierName);
     this.ChooseServiceTypeElem.sendKeys(this.carrierName).click();
   };
-  // this.setCarrier = function (carrier) {
-  //   console.log('carrier', carrier);
-  //   this.carrierName = carrier;
-  // };
-
-  // this.getCarrier = function () {
-  //   return this.carrierName;
-  // };
-
-  // this.selectCarrier = function () {
-  //   console.log('this.selectCarrier');
-  //   this.ChooseServiceTypeElem.sendKeys(this.carrierName);
-  //   this.ChooseServiceTypeElem
-  //   .element(by.cssContainingText("option", this.getCarrier()))
-  //   .click();
-  //     element(by.cssContainingText('option', this.getCarrier())).click();
-  // };
 
   this.clickGetRateForCarrier = function () {
     this.ClickOnGetRateElem.click();
@@ -331,6 +331,49 @@ var CreateBolForm = function () {
     this.takeDescModal.sendKeys(protractor.Key.ENTER); 
     this.takeDescModal.sendKeys(protractor.Key.ENTER); 
   };
+
+  this.setPackageQuantityForMultiClass = function (pieces) {
+    this.packageForMultiClass = pieces;
+  };
+
+  this.enterPackageQuantityForMultiClass = function () {
+    this.PackageQuantityForMultiClassElem.sendKeys(this.packageForMultiClass);
+  };
+
+  this.setWeightForMultiClass = function (weight) {
+    this.weightForMultiClass = weight;
+  };
+
+  this.enterWeightForMultiClass = function () {
+    this.WeightForMultiClassElem.sendKeys(this.weightForMultiClass);
+  };
+
+  this.setDescPiecesForMultiClass = function (desc) {
+    this.descPieces = desc;
+  };
+  this.enterDescPieces = function () {
+    this.DescForPiecesElem.sendKeys(this.descPieces);
+    this.takeDescModal.sendKeys(protractor.Key.ENTER); 
+    this.takeDescModal.sendKeys(protractor.Key.ENTER); 
+  };
+
+  this.setNmfcForMultiClass= function (nmfc) {
+    this.nmfcForMultiClass = nmfc;
+  };
+
+  this.enterNmfcForMultiClass = function () {
+    this.nmfcElem.sendKeys(this.nmfcForMultiClass);
+  };
+  this.setClassForMultiClass = function (classification) {
+    this.classForMultiClass = classification;
+  };
+  this.enterClassForMultiClass = function () {
+    this.ClassificationForPiecesElem.sendKeys(this.classForMultiClass);
+  };
+
+  this.ClickOnAddBtnForMultiClassModal = function () {
+    this.ClickOnAddBtnForMultiClassElem.click();
+  }
 }
 
 module.exports = CreateBolForm;

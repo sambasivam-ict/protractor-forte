@@ -2,7 +2,7 @@
   "data": {
     "environment_url": "http://54.176.155.237:3000/",
     "ar_discount": 78,
-    "ar_fuel_charge": 24,
+    "ar_fuel_charge": 21.2,
     "login_credentials_admin": {
       "user_name": "Bbuchanan",
       "password": "hRG7bcc"

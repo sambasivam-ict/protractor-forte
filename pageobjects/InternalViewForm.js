@@ -62,7 +62,7 @@ var InternalViewForm = function () {
   };
 
   this.selectCompany = function () {
-    console.log('this.selectcompanyrules');
+    console.log('this.selectcddompanyrules');
     this.selectElemCompany
       .element(by.cssContainingText("option", this.getCompanyName()))
       .click();
@@ -153,6 +153,10 @@ var InternalViewForm = function () {
     this.AddBtnElem.click();
   };
 
+  this.enterClassForDummy = function () {
+    this.ClassElem.sendKeys(this.Class);
+  }
+
   this.ClickGetQuote = async function () {
     this.ClickGetQuoteElem.click();
   };
@@ -169,16 +173,27 @@ var InternalViewForm = function () {
     this.logoutElem.click();
   };
   
-  this.calulatHighCostChargeFromCWT = function () {
+  this.calulatHighCostChargeFromCWT = function (weight, highCostDollorPerCWT) {
     return (
-      (Number(this.Weight) / 100) *
-      Number(this.highCostDollorPerCWT)
+      (Number(weight) / 100) *
+      Number(highCostDollorPerCWT)
     ).toFixed(2);
   };
 
-  this.calculateNetCharge = function (grossCharge, discount, fuelDiscount, amc) {
+  this.calculateNetCharge = function (grossCharge, discount, fuelDiscount, amc, costplusFactor) {
+    console.log('CalculateCharge', grossCharge, discount, fuelDiscount, amc);
+    if (Number(discount) == 0) {
+      discountedRate = grossCharge;
+    console.log('CalculateCharge 123', discountedRate);
+    } else {
     discountedRate = ((1 - discount / 100) * grossCharge).toFixed(2);
-    if (discountedRate < amc) {
+    console.log('CalculateCharge 456', discountedRate);
+    }
+    if(costplusFactor) {
+      let costplusValue = (discountedRate*costplusFactor)/100;
+      discountedRate = Number(costplusValue) + Number(discountedRate);
+    }
+    if (Number(discountedRate) < Number(amc)) {
       discountedRate = amc;
     }
     fuelCharge = ((Number(discountedRate) * fuelDiscount) / 100).toFixed(2);

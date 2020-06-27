@@ -3,8 +3,8 @@
     "environment_url": "http://54.176.155.237:3000/",
     "environment_stageUrl": "http://52.52.76.24:3000/",
     "ar_discount": 85,
-    "ar_fuel_charge": 24,
-    "ap_fuel_charge": 24,
+    "ar_fuel_charge": 20.65,
+    "ap_fuel_charge": 20.65,
     "ar_nondirect_discount": 80,
 
     "login_credentials_admin": {
@@ -29,7 +29,7 @@
       "Weight": "2200",
       "ap_gross_charge": "4502.74",
       "ar_gross_charge": "5924.13",
-      "ca_charge": "9"
+      "ca_charge": "9.95"
     },
     "non_direct_zip": {
       "company_name":"ACTIVE SOLUTIONS LLC",
@@ -39,7 +39,7 @@
       "Weight": "1290",
       "ap_gross_charge": "3427.66",
       "ar_gross_charge": "4436.83",
-      "ca_charge": "9",
+      "ca_charge": "9.95",
       "ship_type": "Non Direct"
     },
     "highcost_min": {
@@ -51,7 +51,7 @@
       "high_cost_charge": "390.00",
       "ap_gross_charge": "4567.50",
       "ar_gross_charge": "6001.07",
-      "ca_charge": "9"
+      "ca_charge": "9.95"
     },
     "highcost_no_min": {
       "company_name":"ACTIVE SOLUTIONS LLC",
@@ -62,7 +62,7 @@
       "ap_gross_charge": "2185.80",
       "ar_gross_charge": "2942.60",
       "high_cost_charge": "101.5",
-      "ca_charge": "9"
+      "ca_charge": "9.95"
     },
     "accssorial_quote_lg": {
       "company_name":"ACTIVE SOLUTIONS LLC",
