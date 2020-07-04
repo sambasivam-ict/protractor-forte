@@ -30,9 +30,9 @@ exports.config = {
 
   framework: "jasmine",
   seleniumAddress: "http://localhost:4444/wd/hub",
-  specs: ["newyrcquoteinternalview.js", "NewFedexQuoteInternalView.js",  "newReddawayQuoteInternalView.js", "newyrcquotewithcompanyrules.js", "newfedexquotewithcompanyrules.js", "newreddawayquotewithcompanyrules.js", "externalQuotecreation.js", "createbol.js"],
+  specs: ["yrcquoteinternal_view.js", "fedexquoteInternal_view.js",  "reddawayquoteInternal_view.js", "yrcquote_with_companyrules.js", "fedexquote_with_companyrules.js", "reddawayquote_with_companyrules.js", "externalQuote_creation.js", "create_bol.js"],
   //"newreddawayquotewithcompanyrules.js""newreddawayquotewithcompanyrules.js"
-//specs: ["NewFedexQuoteInternalView.js"],
+//specs: ["yrcquoteinternal_view.js"],
 
 
   /*
