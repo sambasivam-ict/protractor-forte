@@ -25,12 +25,13 @@ describe("External Customer logs in for creating Bill of lading", function () {
   beforeAll(function () {
     browser.sleep(3000);
     browser.ignoreSynchronization = true;
-    if (environment.isStage == false) {
+    if (environment.envType == "dev") {
       browser.get(environment.dev_url);
+    } else if (environment.envType == "stage") { 
+      browser.get(environment.stage_url);
     } else {
       browser.get(environment.prod_url);
     }
-
     var loginPageObj = new LogisticsLoginPage();
 
     var credentials = testDataInfo.data.login_credentials_customer;

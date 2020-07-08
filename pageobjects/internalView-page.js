@@ -17,11 +17,12 @@ var InternalViewForm = function () {
 
   this.selectElemCompany = $("select[formControlName=customer]");
 
+  //this.selectAccessorials = element(by.id("selectedItems"));
   this.viewBtnYrc = element(by.id("yrcView"));
   this.viewBtnFedex = element(by.id("economyView"));
   this.viewBtnReddaway = element(by.id("reddawayView"));
 
-  this.selectAccessorials = element(by.id("selectedItems"));
+  this.selectAccessorials = element(by.name("selectedItems"));
 
   this.selectSpecificAccessorial = element(by.className("pure-checkbox"));
 
@@ -74,9 +75,23 @@ var InternalViewForm = function () {
       .element(by.cssContainingText("option", this.getCompanyName()))
       .click();
   };
+  this.setAccessorials = function (data) {
+    
+    this.accessorialValue = data;
+  };
+
+  this.enterAccessorials = function () {
+    console.log('data for accessorials', this.accessorialValue);
+    let array = { "id": 1, "itemName": "LiftGate Service", "Yrccost": "8.80", "Fedexcost": "72.06" };
+    console.log('data for accessorials', array);
+    element(by.id('selectedItems')).click();
+    
+    element(by.name('selectedItems')).sendKeys(array);
+    element(by.name('selectedItems')).click();
+  } 
 
   this.clickSelectAccessorialMultiSelect = function () {
-    this.selectAccessorials.click();
+    this.selectAccessorials.sendKeys();
   };
 
   this.clickLiftGateAccessorial = function () {

@@ -18,6 +18,7 @@
       "Destinationzipcode": "80001",
       "Class": "85",
       "Weight": "1200",
+      "accessorials": [{ "id": 1, "itemName": "LiftGate Service", "Yrccost": "8.80", "Fedexcost": "72.06" }],
       "ap_gross_charge": "3150.84",
       "ar_gross_charge": "4078.63"
     },

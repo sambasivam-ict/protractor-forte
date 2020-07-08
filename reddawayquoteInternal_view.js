@@ -25,8 +25,10 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
     console.log("test data:", testDataInfo.data.Nondirect_quote.Class);
 
     browser.ignoreSynchronization = true;
-    if (environment.isStage == false) {
+    if (environment.envType == "dev") {
       browser.get(environment.dev_url);
+    } else if (environment.envType == "stage") { 
+      browser.get(environment.stage_url);
     } else {
       browser.get(environment.prod_url);
     }

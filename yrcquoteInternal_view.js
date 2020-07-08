@@ -25,8 +25,10 @@ describe("YRC Quote Creation by admin testcases", function () {
     console.log("test data:", testDataInfo.data.venilla_quote.Class);
     console.log("environment", environment);
     browser.ignoreSynchronization = true;
-    if (environment.isStage == false) {
+    if (environment.envType == "dev") {
       browser.get(environment.dev_url);
+    } else if (environment.envType == "stage") { 
+      browser.get(environment.stage_url);
     } else {
       browser.get(environment.prod_url);
     }
@@ -76,6 +78,7 @@ describe("YRC Quote Creation by admin testcases", function () {
       var dataObj = testDataInfo.data.venilla_quote;
       internalForm.setCompanyName(dataObj.company_name);
       ltlQuoteForm.setDataInObject(dataObj, internalForm);
+    //  ltlQuoteForm.setAccessorialsValues(dataObj.accessorials, internalForm);
       ltlQuoteForm.createLtlQuote(browser, internalForm);
       internalForm.clickGetQuote();
       browser.sleep(2000);
