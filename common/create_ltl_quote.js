@@ -5,13 +5,12 @@ var CreateLTLQuote = function () {
     internalForm.setDestinationzipcode(testData.Destinationzipcode);
     internalForm.setClass(testData.Class);
     internalForm.setWeight(testData.Weight);
-    //internalForm.setAccessorials(testData.accessorials);
+    internalForm.setAccessorials(testData.accessorials);
   };
 
-  // this.setAccessorialsValues = function (testData, internalForm) {
-  //   console.log('createltlQuote set assess', testData);
-  //   internalForm.setAccessorials(testData.accessorials);
-  // };
+  this.setAccessorialsValues = function (testData, internalForm) {
+    internalForm.setAccessorials(testData.accessorials);
+  };
   this.createLtlQuote = function (browser, internalForm) {
     internalForm.selectCompany();
     browser.sleep(2000);
@@ -25,8 +24,8 @@ var CreateLTLQuote = function () {
 
     internalForm.clickAddBtn();
     browser.sleep(6000);
-    // internalForm.enterAccessorials();
-    // browser.sleep(4000);
+   internalForm.enterAccessorials();
+     browser.sleep(4000);
     browser.sleep(4000);
   };
 

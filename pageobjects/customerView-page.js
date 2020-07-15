@@ -30,7 +30,15 @@ var CustomerViewForm = function () {
     this.clickDrowpDown = element(by.id("Capa_1"));
   
     this.clearAllBtn = element(by.id("clear"));
+    this.contactSalesRepMsg = element.all(by.tagName('p'));
+    
+    this.yrcCAChargeElem = element(by.id('cAChargeYRCREDAWAY'));
+
+    this.totalChargeElem = element(by.id('totalGrossAR'));
   
+    this.yrcHighCostElem = element(by.id('highCost'));
+
+    this.shipTypeElem = element(by.id('resultShipTypes'));
     //this.getQuoteElem = $("button[id=getQuote]");
   
     //this.selectCompanyElem = $(by.id("customer"));
@@ -190,7 +198,27 @@ var CustomerViewForm = function () {
     this.ClickGetQuote = async function () {
       this.ClickGetQuoteElem.click();
     };
-  
+
+    this.getContactSalesRepMsg = async function() {
+
+    return await this.contactSalesRepMsg.getText();
+    }
+    this.getTotalCharge = async function() {
+      return await this.totalChargeElem.getText();
+    }
+
+    this.getYrcCACharge = async function () {
+      return await this.yrcCAChargeElem.getText();
+    }
+
+    
+    this.getYrcHighCost = async function () {
+      return await this.yrcHighCostElem.getText();
+    }
+
+    this.getShipmentType = async function () {
+      return await this.shipTypeElem.getText();
+    }
     this.calulatHighCostChargeFromCWT = function () {
       return (
         (Number(this.Weight) / 100) *

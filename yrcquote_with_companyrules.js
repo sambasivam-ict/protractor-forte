@@ -22,14 +22,7 @@ describe("YRC Quote Creation by admin for company that has rules", function () {
   beforeAll(function () {
     browser.ignoreSynchronization = true;
     console.log("environment", environment);
-    if (environment.envType == "dev") {
-      browser.get(environment.dev_url);
-    } else if (environment.envType == "stage") { 
-      browser.get(environment.stage_url);
-    } else {
-      browser.get(environment.prod_url);
-    }
-
+    browser.get(environment.url);
     var loginPageObj = new LogisticsLoginPage();
     browser.sleep(3000);
     var credentials = testDataInfo.data.login_credentials_admin;

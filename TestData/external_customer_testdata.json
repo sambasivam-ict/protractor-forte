@@ -53,7 +53,8 @@
         "Carrier": "REDDAWAY",
         "ar_gross_charge": "2082.70",
         "ar_discount": 75,
-        "ar_amc": 45
+        "ar_amc": 45,
+        "ca_charge": 9.95
       }
     }
 }

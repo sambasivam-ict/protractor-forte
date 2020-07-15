@@ -32,7 +32,7 @@ exports.config = {
   seleniumAddress: "http://localhost:4444/wd/hub",
   specs: ["yrcquoteinternal_view.js", "fedexquoteInternal_view.js",  "reddawayquoteInternal_view.js", "yrcquote_with_companyrules.js", "fedexquote_with_companyrules.js", "reddawayquote_with_companyrules.js", "externalQuote_creation.js", "create_bol.js"],
   //"newreddawayquotewithcompanyrules.js""newreddawayquotewithcompanyrules.js"
-//specs: ["yrcquoteinternal_view.js"],
+//specs: ["externalQuote_creation.js"],
 
 
   /*

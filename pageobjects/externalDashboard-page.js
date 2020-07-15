@@ -1,5 +1,6 @@
 var ExternalDashboardForm = function () {
     this.rateQuoteElem = element(by.id("rateQuoteRequestTitle"));
+    this.rateQuoteLinesElem = element(by.id('rateQuoteRequestPara'));
     this.createBolElem = element(by.id("bolTitle"));
     this.goToDashboardElem = element(by.id('dashboard'));
     this.welcomeUserElem = element(by.id('navbarDropdownMenuLink1'));
@@ -9,6 +10,10 @@ var ExternalDashboardForm = function () {
     this.clickOnExternalDashboard = function () {
         this.rateQuoteElem.click();
       };
+
+      this.getRateQuoteLines = function () {
+        this.rateQuoteLinesElem.getText();
+      }
 
       this.clickOnCreateBol = function () {
         this.createBolElem.click();
