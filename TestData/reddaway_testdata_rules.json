@@ -84,6 +84,13 @@
       "ar_amc": 100,
       "high_cost": 0,
       "ca_charge": 9.95
+    },
+    "reddaway_non_direct": {
+      "company_name": "TEST COMPANY FOR E2E REDDAWAY",
+      "Originzipcode": "80622",
+      "Destinationzipcode": "80403",
+      "Class": "250",
+      "Weight": "250" 
     }
   }
 }

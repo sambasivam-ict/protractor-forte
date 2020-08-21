@@ -29,7 +29,7 @@
         "ar_gross_charge": "811.42",
         "ar_discount": 45,
         "ar_amc": 150,
-        "high_cost": 82,
+        "high_cost": "82.00",
         "ca_charge": 9.95
       
       },
@@ -55,6 +55,13 @@
         "ar_discount": 75,
         "ar_amc": 45,
         "ca_charge": 9.95
+      },
+      "reddaway_non_direct": {
+        "company_name": "TEST COMPANY FOR E2E REDDAWAY",
+        "Originzipcode": "80622",
+        "Destinationzipcode": "80403",
+        "Class": "250",
+        "Weight": "250" 
       }
     }
 }

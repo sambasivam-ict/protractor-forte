@@ -7,13 +7,20 @@ var ExternalDashboardForm = function () {
     this.welcomeMenuElem = element(by.id('wlcm-menu1'));
     this.logoutElem = element(by.id('wlcm-item1'));
 
+    this.dashboardHeadingElem = element(by.id("dashboardid"));
+
     this.clickOnExternalDashboard = function () {
         this.rateQuoteElem.click();
       };
 
-      this.getRateQuoteLines = function () {
-        this.rateQuoteLinesElem.getText();
+      this.getDashboardHeading = function () {
+        return element(by.id('dashboardHeadingElem')).getText();
       }
+
+      this.setInValues = function (data) {
+        this.rateQuoteElem.sendKeys(setInValues);
+      }
+      
 
       this.clickOnCreateBol = function () {
         this.createBolElem.click();

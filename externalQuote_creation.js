@@ -12,6 +12,7 @@ var testDataInfo = require("./TestData/external_customer_testdata.json");
 var QuoteDetailForm = require("./pageobjects/quoteDetail-page");
 var LtlQuoteFormForExternalCustomer = require("./common/create_quoteforExternalcustomerquote");
 var CustomerViewForm = require("./pageobjects/customerView-page");
+var QuoteDetailCustomerViewForm = require("./pageobjects/quoteDetail_customerView-page");
 var environment = require("./environment/env");
 
 var masterDataAPDiscount = [];
@@ -79,6 +80,7 @@ describe("External Customer logs in for creating external quotes", function () {
     browser.sleep(5000).then(function () {
       var customerViewForm = new CustomerViewForm();
       var ltlQuoteFormForExternalCustomer = new LtlQuoteFormForExternalCustomer();
+      var quoteDetailCustomerViewForm = new QuoteDetailCustomerViewForm();
       $("body").sendKeys(protractor.Key.ESCAPE);
       var dataInput = testDataInfo.data.yrc_intrastate;
 
@@ -94,6 +96,7 @@ describe("External Customer logs in for creating external quotes", function () {
         browser,
         customerViewForm
       );
+      
       browser.sleep(2000);
       customerViewForm.clickGetQuote();
       browser.sleep(10000).then(function () {
@@ -104,8 +107,18 @@ describe("External Customer logs in for creating external quotes", function () {
           localStorageValues.getArMasterDataByCompany().YRC.fuelsurcharge,
           dataInput.ar_amc
         );
-
         browser.sleep(5000);
+
+        expect(quoteDetailCustomerViewForm.getGrossCharge()).toEqual(
+          "$" + dataInput.ar_gross_charge
+        );
+        expect(quoteDetailCustomerViewForm.getHighCost()).toEqual(
+          "High Cost - $" + dataInput.high_cost
+        );
+        expect(quoteDetailCustomerViewForm.getCaCharge()).toEqual(
+          "CA Charge - $" + dataInput.ca_charge
+        );
+
       });
     });
   });
@@ -115,6 +128,7 @@ describe("External Customer logs in for creating external quotes", function () {
     browser.sleep(5000).then(function () {
       var customerViewForm = new CustomerViewForm();
       var ltlQuoteFormForExternalCustomer = new LtlQuoteFormForExternalCustomer();
+      var quoteDetailCustomerViewForm = new QuoteDetailCustomerViewForm();
       $("body").sendKeys(protractor.Key.ESCAPE);
       var dataInput = testDataInfo.data.fedex_Economy_Regional;
 
@@ -141,8 +155,14 @@ describe("External Customer logs in for creating external quotes", function () {
             .fuelsurcharge,
           dataInput.ar_amc
         );
-
         browser.sleep(5000);
+        expect(quoteDetailCustomerViewForm.getGrossCharge()).toEqual(
+          "$" + dataInput.ar_gross_charge
+        );
+        expect(quoteDetailCustomerViewForm.getFedexShipType()).toEqual(
+          "Regional"
+        );
+        
       });
     });
   });
@@ -151,6 +171,7 @@ describe("External Customer logs in for creating external quotes", function () {
     browser.sleep(5000).then(function () {
       var customerViewForm = new CustomerViewForm();
       var ltlQuoteFormForExternalCustomer = new LtlQuoteFormForExternalCustomer();
+      var quoteDetailCustomerViewForm = new QuoteDetailCustomerViewForm();
       $("body").sendKeys(protractor.Key.ESCAPE);
       var dataInput = testDataInfo.data.reddaway_spl_rule;
 
@@ -178,6 +199,16 @@ describe("External Customer logs in for creating external quotes", function () {
         );
 
         browser.sleep(5000);
+        expect(quoteDetailCustomerViewForm.getGrossCharge()).toEqual(
+          "$" + dataInput.ar_gross_charge
+        );
+        expect(quoteDetailCustomerViewForm.getCaCharge()).toEqual(
+          "CA Charge - $" + dataInput.ca_charge
+        );
+        expect(quoteDetailCustomerViewForm.getFedexShipType()).toEqual(
+          "Direct"
+        );
+        
       });
     });
   });
@@ -186,6 +217,7 @@ describe("External Customer logs in for creating external quotes", function () {
     browser.sleep(5000).then(function () {
       var customerViewForm = new CustomerViewForm();
       var ltlQuoteFormForExternalCustomer = new LtlQuoteFormForExternalCustomer();
+      var quoteDetailCustomerViewForm = new QuoteDetailCustomerViewForm();
       $("body").sendKeys(protractor.Key.ESCAPE);
       var dataInput = testDataInfo.data.yrc_intrastate;
 
@@ -201,6 +233,10 @@ describe("External Customer logs in for creating external quotes", function () {
         browser,
         customerViewForm
       );
+      browser.sleep(2000);
+      // expect(quoteDetailCustomerViewForm.getReddawayNoService()).toEqual(
+      //   "Service is not available for these zipcodes"
+      // );
       browser.sleep(2000);
       customerViewForm.clickGetQuote();
       browser.sleep(10000);

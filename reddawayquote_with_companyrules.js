@@ -246,4 +246,52 @@ describe("Reddaway Quote Creation by admin for company that has rules", function
       browser.sleep(2000);
     });
   });
+
+  it("Reddaway Quote for Zipcodes service not available", function () {
+    browser.sleep(5000).then(function () {
+      console.log(
+        "Reddaway service not available"
+      );
+      $("body").sendKeys(protractor.Key.ESCAPE);
+      var internalForm = new InternalForm();
+      var ltlQuoteForm = new LtlQuoteForm();
+
+      var dataObj = testDataInfo.data.reddaway_non_direct;
+
+      internalForm.setCompanyName(dataObj.company_name);
+      ltlQuoteForm.setDataInObject(dataObj, internalForm);
+      ltlQuoteForm.createLtlQuoteRules(browser, internalForm);
+      internalForm.clickGetQuote();
+      browser.sleep(2000);
+      browser.sleep(10000).then(function () {
+        // browser.actions().mouseMove(internalForm.viewBtnReddaway).perform();
+        // internalForm.clickViewButtonReddaway();
+        // browser.sleep(2000);
+        // const quoteObj = internalForm.calculateNetCharge(
+        //   dataObj.ar_gross_charge,
+        //   dataObj.ar_discount,
+        //   localStorageValues.getArMasterDataByCompany().REDDAWAY.fuelsurcharge,
+        //   dataObj.ar_amc
+        // );
+        // console.log("quoteObj", quoteObj);
+
+        // expect(quoteDetailForm.getReddawayApGrossCharge()).toEqual(
+        //   "$" + dataObj.ap_gross_charge
+        // );
+        // expect(quoteDetailForm.getReddawayArGrossCharge()).toEqual(
+        //   "$" + dataObj.ar_gross_charge
+        // );
+
+        // expect(quoteDetailForm.getReddawayArDiscountedRate()).toEqual(
+        //   "$" + quoteObj.discountedRate
+        // );
+
+        // expect(quoteDetailForm.getReddawayArNetCharge()).toEqual(
+        //   "$" + quoteObj.netCharge
+        // );
+      });
+      browser.sleep(2000);
+    });
+  });
+
 });

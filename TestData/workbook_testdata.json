@@ -1,0 +1,17 @@
+{
+    "data": {
+      "environment_url": "http://54.176.155.237:3000/",
+      "environment_stageUrl": "http://52.52.76.24:3000/",
+      
+  
+      "login_credentials_admin": {
+        "user_name": "Mbaldwin",
+        "password": "72HzddV"
+      },
+      "company_creation": {
+        "TypeOfUser": "New Company",
+        "CompanyName": "New Company",
+        "CompanyZip": "80005"
+      }
+    }
+}  

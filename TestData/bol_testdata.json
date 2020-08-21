@@ -34,7 +34,7 @@
         "ShowRateNextStep":"true",
         "ServiceType":"YRC",
         "CarrierType":"YRC",
-        "Rate": "1785.56"
+        "Rate": "650.00"
       },
 
       "fedexEco_nonItemized": {
@@ -64,7 +64,7 @@
         "ShowRateNextStep":"true",
         "ServiceType":"FXFE",
         "CarrierType":"FEDEX FREIGHT ECONOMY",
-        "Rate":"959.90"
+        "Rate":"720.00"
       },
       
       "reddaway_nonItemized": {

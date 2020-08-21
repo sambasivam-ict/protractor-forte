@@ -79,9 +79,14 @@ describe("External Customer logs in for creating Bill of lading", function () {
       createBolQuote.createBolQuote(browser, createBolForm);
 
       browser.sleep(10000);
-
+      
       browser.sleep(10000).then(function () {
+        expect(createBolForm.getRate()).toEqual(
+          " " + "$" +dataInput.rate
+        ) 
         browser.sleep(4000);
+
+
 
         expect(createBolSummaryForm.getYrcOriginZip()).toEqual(
           dataInput.ShipperZip
@@ -118,6 +123,9 @@ describe("External Customer logs in for creating Bill of lading", function () {
 
       browser.sleep(10000);
       browser.sleep(10000).then(function () {
+              expect(createBolForm.getRate()).toEqual(
+          " " + "$" +dataInput.rate
+        ) 
         browser.sleep(4000);
         expect(createBolSummaryForm.getFedexEcoOriginZip()).toEqual(
           dataInput.ShipperZip

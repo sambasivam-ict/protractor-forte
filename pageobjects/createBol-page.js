@@ -102,6 +102,8 @@ var CreateBolForm = function () {
 
   this.ClickOnAddBtnForMultiClassElem = element(by.id('addBtn'));
 
+  this.rateForYrcElem = element(by.id('quoterate'));
+
   this.setShipperStreet1 = function (shipperStreet) {
     this.shipperStreet = shipperStreet
   }
@@ -373,7 +375,14 @@ var CreateBolForm = function () {
 
   this.ClickOnAddBtnForMultiClassModal = function () {
     this.ClickOnAddBtnForMultiClassElem.click();
-  }
+  };
+
+  this.getRate = async function () {
+    //var grossCharge = await this.yrcApGrossElem.getText();
+    return await this.rateForYrcElem.getText();
+  };
 }
 
 module.exports = CreateBolForm;
+
+

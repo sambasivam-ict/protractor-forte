@@ -126,7 +126,7 @@ describe("Reddaway Quote Creation by admin testcases in the internal page", func
 
         expect(
           localStorageValues.getAPMasterDataForReddaway().fuelsurcharge
-        ).toEqual("23.3");
+        ).toEqual("23.4");
       });
       browser.sleep(3000);
     });
